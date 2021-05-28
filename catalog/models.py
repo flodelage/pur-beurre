@@ -19,7 +19,7 @@ class Product(models.Model):
     picture = models.URLField()
     url = models.URLField()
     # Foreign Key(s):
-    categories = models.ManyToManyField("Category", related_name="products")
+    categories = models.ManyToManyField(Category, related_name="products")
 
     def __str__(self):
         return f"Produit {self.pk}: {self.name} / Nutriscore: {self.nutriscore} / Marque(s): {self.brand} / Url: {self.url}"
@@ -27,8 +27,8 @@ class Product(models.Model):
 
 class Favorite(models.Model):
     # Foreign Key(s):
-    substitute = models.ForeignKey("Product", related_name="favorites_as_substitute", on_delete=models.CASCADE)
-    product = models.ForeignKey("Product", related_name="favorites_as_product", on_delete=models.CASCADE)
+    substitute = models.ForeignKey(Product, related_name="favorites_as_substitute", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="favorites_as_product", on_delete=models.CASCADE)
     profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -36,8 +36,8 @@ class Favorite(models.Model):
 
 
 class Profile(AbstractUser):
-    email = models.EmailField(unique=True, error_messages={'unique': 'A profile with that email already exists.'}, blank=False, max_length=254, verbose_name='email address')
-    password = models.CharField(max_length=128, verbose_name='password', blank=False)
+    email = models.EmailField(unique=True, error_messages={'unique': 'A profile with that email already exists.'}, max_length=254)
+    password = models.CharField(max_length=128)
 
     def __str__(self):
         return f"Profile {self.pk}: {self.email}"
