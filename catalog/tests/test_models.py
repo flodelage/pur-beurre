@@ -1,7 +1,7 @@
 
 from django.test import TestCase
 
-from catalog.models import Product, Category, Favorite, User
+from catalog.models import Product, Category, Favorite, Profile
 
 
 class CategoryModelTest(TestCase):
@@ -29,7 +29,8 @@ class CategoryModelTest(TestCase):
     def test_object_str(self):
         category = Category.objects.get(id=1)
         object_str = category.__str__()
-        self.assertEquals(object_str, f"Catégorie {category.pk}: {category.name}")
+        self.assertEquals(object_str,
+                          f"Catégorie {category.pk}: {category.name}")
 
 
 class ProductModelTest(TestCase):
@@ -81,30 +82,15 @@ class ProductModelTest(TestCase):
         max_length = product._meta.get_field('brand').max_length
         self.assertEquals(max_length, 200)
 
-    def test_brand_default(self):
-        product = Product.objects.get(id=1)
-        default = product._meta.get_field('brand').default
-        self.assertEquals(default, 'Non renseigné')
-
     def test_description(self):
         product = Product.objects.get(id=1)
         description = product.description
         self.assertEquals(description, 'produit sans gluten')
 
-    def test_description_default(self):
-        product = Product.objects.get(id=1)
-        default = product._meta.get_field('description').default
-        self.assertEquals(default, 'Non renseigné')
-
     def test_picture(self):
         product = Product.objects.get(id=1)
         picture = product.picture
         self.assertEquals(picture, 'https://static.openfoodfacts.org/images/products/1234.jpg')
-
-    def test_picture_default(self):
-        product = Product.objects.get(id=1)
-        default = product._meta.get_field('picture').default
-        self.assertEquals(default, 'Non renseigné')
 
     def test_url(self):
         product = Product.objects.get(id=1)
@@ -114,4 +100,21 @@ class ProductModelTest(TestCase):
     def test_object_str(self):
         product = Product.objects.get(id=1)
         object_str = product.__str__()
-        self.assertEquals(object_str, f"Produit {product.pk}: {product.name} / Nutriscore: {product.nutriscore} / Marque(s): {product.brand} / Url: {product.url}")
+        self.assertEquals(object_str,
+                          f"""Produit {product.pk}: {product.name} / Nutriscore: {product.nutriscore} / Marque(s): {product.brand} / Url: {product.url}""")
+
+
+class FavoriteModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        pass
+
+
+class ProfileModelTest(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Set up non-modified objects used by all test methods
+        pass
