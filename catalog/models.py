@@ -32,7 +32,7 @@ class Favorite(models.Model):
     profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Substitut {self.pk}: {self.substitute.__str__()} / Produit substitué: {self.product.__str__()}"
+        return f"Favori {self.pk}: Substitut: {self.substitute} / Produit substitué: {self.product} / Profil: {self.profile}"
 
 
 class Profile(AbstractUser):
@@ -40,4 +40,4 @@ class Profile(AbstractUser):
     password = models.CharField(max_length=128)
 
     def __str__(self):
-        return f"Profile {self.pk}: {self.email}"
+        return f"Profil {self.pk}: {self.email}"

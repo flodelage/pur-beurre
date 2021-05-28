@@ -152,4 +152,4 @@ class ProfileModelTest(TestCase):
     def test_object_str(self):
         profile = Profile.objects.get(id=1)
         object_str = profile.__str__()
-        self.assertEquals(object_str, f"Profile {profile.pk}: {profile.email}")
+        self.assertEquals(object_str, f"Profil {profile.pk}: {profile.email}")
