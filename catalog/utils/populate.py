@@ -7,53 +7,71 @@ from catalog.models import Category, Product
 
 
 class Populate():
+    """
+    Responsability: Requests Openfoodfacts API in order to
+    retrieve some categories and their products.
+    Then insert them in database.
+    """
 
     def __init__(self):
-        self.categories_list =[]
+        """
+        Stores categories inserted in database in order know
+        which products from wich category have to be inserted
+        """
+        self.categories_list = []
 
     def insert_categories(self, categories_number):
-        # requete sur les catégories
+        """
+        Insert a list of X categories in database
+        from Openfoodfacts categories Json
+        """
         request = requests.request("GET", "https://fr.openfoodfacts.org/categories.json")
         if request.status_code == 404:
             raise RequestResponse404
         categories_json = request.json()
 
-        # pour chacune des X premières categories:
         for category in categories_json["tags"]:
-            # je crée une instance de Category et je l'ajoute à la liste
             category = Category(name=category["name"])
             self.categories_list.append(category)
             if len(self.categories_list) == categories_number:
                 break
-        # j'insère la liste d'instances de Category en bdd
         Category.objects.bulk_create(self.categories_list)
 
     def is_product_name_valid(self, product_name):
-        # sourcery skip: return-identity
+        """
+        Verify that the product name is valid.
+        It is only valid if name is not an empty string and:
+        - first character is uppercase
+          (prevent from names that starts with fr:, en:)
+        or
+        - first character is a stringified number
+          (some names starts with numbers, ex: 100 % pur jus Multifruits)
+        """
         if product_name != "":
-            if type(product_name.strip()[0]) is str:
-                if product_name.strip()[0].isupper():
-                    return True
-                else:
-                    return False
-            else:
+            if product_name.strip()[0].isupper():
                 return True
+            elif product_name.strip()[0] in [str(num) for num in range(10)]:
+                return True
+            else:
+                return False
         else:
             return False
 
     def insert_products(self, pages_number):
-        # pour chacune des X premières pages de la requete sur la categorie:
+        """
+        Insert X pages of products from each category in database
+        Products are inserted with their categories
+        """
         for category in self.categories_list:
             for page in range(pages_number+1):
                 request = requests.request("GET", f"https://fr.openfoodfacts.org/categorie/{category.name}.json/{page}")
                 if request.status_code == 404:
                     raise RequestResponse404
                 products_json = request.json()
-                # pour chacuns des produits:
+
                 for product in products_json["products"]:
                     try:
                         if self.is_product_name_valid(product["product_name_fr"]):
-                            # j'essaie d'insérer le produit en bdd
                             try:
                                 Product.objects.create(
                                     name=product["product_name_fr"].strip(),
@@ -65,21 +83,21 @@ class Populate():
                                 )
 
                                 last_product = Product.objects.latest("id")
-                                # pour chacune des catégories du produit:
+
                                 for cat in product["categories"].split(","):
-                                    # j'essaie de la retrouver dans la base de données puis je l'ajoute au produit
                                     try:
                                         last_product.categories.add(Category.objects.get(name=cat))
-                                    # si la catégorie n'a pas été enregistrée on continue
                                     except Category.DoesNotExist:
                                         continue
                                 last_product.save()
-                            # si la clé est absente ou si le nom existe déjà en bdd
                             except (KeyError, IntegrityError):
                                 continue
                     except KeyError:
                         continue
 
     def process(self):
-        self.insert_categories(categories_number=20)
+        """
+        Insert categories and products in database
+        """
+        self.insert_categories(categories_number=10)
         self.insert_products(pages_number=4)
