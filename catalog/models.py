@@ -14,9 +14,10 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200, unique=True)
     nutriscore = models.CharField(max_length=1)
-    brand = models.CharField(max_length=200)
-    description = models.TextField()
-    picture = models.URLField()
+    brand = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
+    store = models.CharField(max_length=200, null=True)
+    picture = models.URLField(null=True)
     url = models.URLField()
     # Foreign Key(s):
     categories = models.ManyToManyField(Category, related_name="products")

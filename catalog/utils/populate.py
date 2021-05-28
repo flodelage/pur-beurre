@@ -13,14 +13,14 @@ class Populate():
     Then insert them in database.
     """
 
-    def __init__(self):
-        """
-        Stores categories inserted in database in order know
-        which products from wich category have to be inserted
-        """
-        self.categories_list = []
+    categories_list = []
+    """
+    Stores categories inserted in database in order know
+    which products from wich category have to be inserted
+    """
 
-    def insert_categories(self, categories_number):
+    @classmethod
+    def insert_categories(cls, categories_number):
         """
         Insert a list of X categories in database
         from Openfoodfacts categories Json
@@ -32,12 +32,13 @@ class Populate():
 
         for category in categories_json["tags"]:
             category = Category(name=category["name"])
-            self.categories_list.append(category)
-            if len(self.categories_list) == categories_number:
+            cls.categories_list.append(category)
+            if len(cls.categories_list) == categories_number:
                 break
-        Category.objects.bulk_create(self.categories_list)
+        Category.objects.bulk_create(cls.categories_list)
 
-    def is_product_name_valid(self, product_name):
+    @classmethod
+    def is_product_name_valid(cls, product_name):
         """
         Verify that the product name is valid.
         It is only valid if name is not an empty string and:
@@ -57,12 +58,13 @@ class Populate():
         else:
             return False
 
-    def insert_products(self, pages_number):
+    @classmethod
+    def insert_products(cls, pages_number):
         """
         Insert X pages of products from each category in database
         Products are inserted with their categories
         """
-        for category in self.categories_list:
+        for category in cls.categories_list:
             for page in range(pages_number+1):
                 request = requests.request("GET", f"https://fr.openfoodfacts.org/categorie/{category.name}.json/{page}")
                 if request.status_code == 404:
@@ -71,12 +73,13 @@ class Populate():
 
                 for product in products_json["products"]:
                     try:
-                        if self.is_product_name_valid(product["product_name_fr"]):
+                        if cls.is_product_name_valid(product["product_name_fr"]):
                             try:
                                 Product.objects.create(
                                     name=product["product_name_fr"].strip(),
                                     nutriscore=product["nutriscore_grade"].upper(),
                                     brand=product["brands"],
+                                    store=product["stores"],
                                     description=product["generic_name_fr"],
                                     picture=product["image_url"],
                                     url=product["url"]
@@ -95,9 +98,10 @@ class Populate():
                     except KeyError:
                         continue
 
-    def process(self):
+    @classmethod
+    def process(cls):
         """
         Insert categories and products in database
         """
-        self.insert_categories(categories_number=10)
-        self.insert_products(pages_number=4)
+        cls.insert_categories(categories_number=10)
+        cls.insert_products(pages_number=4)
