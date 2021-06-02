@@ -1,0 +1,16 @@
+
+{% extends 'accounts/base.html' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block content %}
+<div class= content>
+    <img src={{ product.picture }} alt="food picture">
+    <h2>{{ product.name }}</h2>
+    <p>Nutriscore: {{ product.nutriscore }}</p>
+    <p>Marque: {{ product.brand }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Magasin(s): {{ product.store }}</p>
+    <a href={{ product.url }} target="_blank">Lien vers Openfoodfacts</a>
+</div>
+{% endblock content %}

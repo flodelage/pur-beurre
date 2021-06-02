@@ -1,5 +1,7 @@
 
 from django.core.management.base import BaseCommand
+from django.core import management
+from django.db import connection
 
 from catalog.utils.populate import Populate
 
@@ -13,4 +15,8 @@ class Command(BaseCommand):
     help = "Populates database with some Openfoodfacts' data"
 
     def handle(self, *args, **kwargs):
+        # with connection.cursor() as cursor:
+        #     cursor.execute("DROP SCHEMA public CASCADE;")
+        #     cursor.execute("CREATE SCHEMA public;")
+        # management.call_command('migrate')
         Populate.process()

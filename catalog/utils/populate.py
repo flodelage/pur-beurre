@@ -103,5 +103,5 @@ class Populate():
         """
         Insert categories and products in database
         """
-        cls.insert_categories(categories_number=10)
+        cls.insert_categories(categories_number=5)
         cls.insert_products(pages_number=4)

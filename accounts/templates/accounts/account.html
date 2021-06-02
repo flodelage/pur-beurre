@@ -1,0 +1,11 @@
+
+{% extends 'accounts/base.html' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+<h1>Ahoy</h1>
+<h2>{{ profile.username }} !</h2>
+
+<p>{{ profile.email }}</p>
+{% endblock content %}

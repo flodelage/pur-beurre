@@ -2,6 +2,7 @@
 from django.test import TestCase
 
 from catalog.models import Product, Category, Favorite, Profile
+from accounts.models import Profile
 
 
 class CategoryModelTest(TestCase):
@@ -43,6 +44,7 @@ class ProductModelTest(TestCase):
             nutriscore='C',
             brand='Nestlé',
             description='produit sans gluten',
+            store= 'Auchan, Carrefour',
             picture='https://static.openfoodfacts.org/images/products/1234.jpg',
             url='https://fr.openfoodfacts.org/produit/1234/produit_de_test'
         )
@@ -82,15 +84,45 @@ class ProductModelTest(TestCase):
         max_length = product._meta.get_field('brand').max_length
         self.assertEquals(max_length, 200)
 
+    def test_brand_null(self):
+        product = Product.objects.get(id=1)
+        null = product._meta.get_field('brand').null
+        self.assertEquals(null, True)
+
     def test_description(self):
         product = Product.objects.get(id=1)
         description = product.description
         self.assertEquals(description, 'produit sans gluten')
 
+    def test_description_null(self):
+        product = Product.objects.get(id=1)
+        null = product._meta.get_field('description').null
+        self.assertEquals(null, True)
+
+    def test_store(self):
+        product = Product.objects.get(id=1)
+        store = product.store
+        self.assertEquals(store, 'Auchan, Carrefour')
+
+    def test_store_max_length(self):
+        product = Product.objects.get(id=1)
+        max_length = product._meta.get_field('store').max_length
+        self.assertEquals(max_length, 200)
+
+    def test_store_null(self):
+        product = Product.objects.get(id=1)
+        null = product._meta.get_field('store').null
+        self.assertEquals(null, True)
+
     def test_picture(self):
         product = Product.objects.get(id=1)
         picture = product.picture
         self.assertEquals(picture, 'https://static.openfoodfacts.org/images/products/1234.jpg')
+
+    def test_picture_null(self):
+        product = Product.objects.get(id=1)
+        null = product._meta.get_field('picture').null
+        self.assertEquals(null, True)
 
     def test_url(self):
         product = Product.objects.get(id=1)
@@ -104,52 +136,63 @@ class ProductModelTest(TestCase):
                           f"""Produit {product.pk}: {product.name} / Nutriscore: {product.nutriscore} / Marque(s): {product.brand} / Url: {product.url}""")
 
 
-class FavoriteModelTest(TestCase):
+class SomeFavoriteTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-        pass
+        Product.objects.create(
+            name='Nutella',
+            nutriscore='D',
+            brand='Ferrero',
+            description='huile de palme',
+            store= 'Auchan, Carrefour',
+            picture='https://static.openfoodfacts.org/images/products/47647.jpg',
+            url='https://fr.openfoodfacts.org/produit/47647/Nutella'
+        )
+
+        Product.objects.create(
+            name='Nocciolata',
+            nutriscore='C',
+            brand='Rigoni di Asiago',
+            description='bio, sans huile de palme',
+            store= 'Leclerc',
+            picture='https://static.openfoodfacts.org/images/products/183647.jpg',
+            url='https://fr.openfoodfacts.org/produit/183647/Nocciolata'
+        )
+
+        Profile.objects.create(email='vanrussom@django.com', password='Django56789')
 
 
-class ProfileModelTest(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        # Set up non-modified objects used by all test methods
-        Profile.objects.create(email='guido@django.com', password='Django1234')
-
-    def test_email(self):
+    def test_product(self):
+        product = Product.objects.get(id=2)
+        substitute = Product.objects.get(id=3)
         profile = Profile.objects.get(id=1)
-        email = profile.email
-        self.assertEquals(email, 'guido@django.com')
 
-    def test_email_unique(self):
-        profile = Profile.objects.get(id=1)
-        unique = profile._meta.get_field('email').unique
-        self.assertEquals(unique, True)
+        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        self.assertEquals(product, favorite.product)
 
-    def test_email_error_messages_unique(self):
+    def test_substitute(self):
+        product = Product.objects.get(id=2)
+        substitute = Product.objects.get(id=3)
         profile = Profile.objects.get(id=1)
-        error_messages_unique = profile._meta.get_field('email').error_messages['unique']
-        self.assertEquals(error_messages_unique, 'A profile with that email already exists.')
 
-    def test_email_max_length(self):
-        profile = Profile.objects.get(id=1)
-        max_length = profile._meta.get_field('email').max_length
-        self.assertEquals(max_length, 254)
+        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        self.assertEquals(substitute, favorite.substitute)
 
-    def test_password(self):
+    def test_profile(self):
+        product = Product.objects.get(id=2)
+        substitute = Product.objects.get(id=3)
         profile = Profile.objects.get(id=1)
-        password = profile.password
-        self.assertEquals(password, 'Django1234')
 
-    def test_password_max_length(self):
-        profile = Profile.objects.get(id=1)
-        max_length = profile._meta.get_field('password').max_length
-        self.assertEquals(max_length, 128)
+        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        self.assertEquals(profile, favorite.profile)
 
     def test_object_str(self):
+        product = Product.objects.get(id=2)
+        substitute = Product.objects.get(id=3)
         profile = Profile.objects.get(id=1)
-        object_str = profile.__str__()
-        self.assertEquals(object_str, f"Profil {profile.pk}: {profile.email}")
+
+        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        object_str = favorite.__str__()
+        self.assertEquals(object_str, f"Favori {favorite.pk}: Substitut: {favorite.substitute} / Produit substitué: {favorite.product} / {favorite.profile}")

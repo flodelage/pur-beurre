@@ -1,7 +1,8 @@
 
 from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+
+from accounts.models import Profile
 
 
 class Category(models.Model):
@@ -33,12 +34,4 @@ class Favorite(models.Model):
     profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Favori {self.pk}: Substitut: {self.substitute} / Produit substitué: {self.product} / Profil: {self.profile}"
-
-
-class Profile(AbstractUser):
-    email = models.EmailField(unique=True, error_messages={'unique': 'A profile with that email already exists.'}, max_length=254)
-    password = models.CharField(max_length=128)
-
-    def __str__(self):
-        return f"Profil {self.pk}: {self.email}"
+        return f"Favori {self.pk}: Substitut: {self.substitute} / Produit substitué: {self.product} / {self.profile}"

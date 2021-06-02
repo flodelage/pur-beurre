@@ -1,0 +1,20 @@
+
+{% extends 'accounts/base.html' %}
+
+{% block title %}Produits{% endblock %}
+
+{% block content %}
+<div class="searchpage-container">
+    <div class="cards-product">
+        {% for favorite in favorites %}
+        <a href="{% url 'product_detail' favorite.substitute.pk %}" class="card-link">
+            <div class="card-product">
+                <h1 class="card-product-name">{{ favorite.substitute.name }}</h1>
+                <img src={{ favorite.substitute.picture }} alt="food picture">
+                <h2 class="card-product-nutriscore">{{ favorite.substitute.nutriscore }}</h2>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
