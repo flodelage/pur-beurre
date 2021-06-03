@@ -1,7 +1,7 @@
 
 {% extends 'accounts/base.html' %}
 
-{% block title %}Produits{% endblock %}
+{% block title %}Substituts{% endblock %}
 
 {% block content %}
 <div>
@@ -17,7 +17,6 @@
                 <h2 class="card-product-nutriscore">{{ product.nutriscore }}</h2>
             </div>
         </a>
-        <a href="{% url 'substitutes_list' %}"><p>Trouver un substitut à ce produit</p></a>
         {% endfor %}
     </div>
 </div>

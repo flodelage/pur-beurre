@@ -11,12 +11,6 @@ from accounts.models import Profile
 from catalog.models import Favorite
 
 
-def home(request):
-    user = request.user
-    context = {'user': user}
-    return render(request, 'accounts/home.html', context)
-
-
 class SignUpView(CreateView):
     form_class = ProfileCreationForm
     success_url = reverse_lazy('login')
@@ -25,11 +19,7 @@ class SignUpView(CreateView):
 
 def logout_request(request):
     logout(request)
-    profile = request.user
-    username = profile.username
-
-    context = {'username': username,}
-    return render(request, 'accounts/registration/logout.html', context)
+    return HttpResponseRedirect(reverse('home'))
 
 
 @login_required
