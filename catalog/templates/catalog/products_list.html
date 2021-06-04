@@ -5,7 +5,7 @@
 
 {% block content %}
 <div>
-    <h2>produit(s) et catégorie(s) contenants "{{user_input}}":</h2>
+    <h2>Produit(s) et catégorie(s) contenants "{{user_input}}":</h2>
 </div>
 <div class="searchpage-container">
     <div class="cards-product">
@@ -20,7 +20,7 @@
                     <h2 class="card-product-nutriscore">{{ product.nutriscore }}</h2>
                 </div>
             </a>
-            <a href="{% url 'substitutes_list'  %}"><p>Trouver un substitut à ce produit</p></a>
+            <a href="{% url 'substitutes_list' product.pk %}"><p>Trouver un substitut à ce produit</p></a>
             {% endfor %}
         {% endif %}
     </div>

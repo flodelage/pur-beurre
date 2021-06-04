@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.db.models import Q
 
-from .models import Product
+from .models import Product, Category
 from .forms import SearchForm
+
 
 def home(request):
     user = request.user
@@ -28,11 +29,16 @@ def products_list(request):
     return render(request, 'catalog/products_list.html', context)
 
 
+def substitutes_list(request, product_pk):
+    product = Product.objects.get(pk=product_pk)
+    categories = Category.objects.filter(products__id=product.id)
+    substitutes = Product.objects.filter(categories__in=categories, nutriscore__lt=product.nutriscore)
+    substitutes = set(substitutes)
+    context = {'categories': categories, 'product': product, 'substitutes': substitutes}
+    return render(request, 'catalog/substitutes_list.html', context)
+
+
 def product_detail(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     context = {'product': product,}
     return render(request, 'catalog/product_detail.html', context)
-
-
-def substitutes_list(request):
-    return render(request, 'catalog/substitutes_list.html')

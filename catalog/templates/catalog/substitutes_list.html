@@ -5,16 +5,16 @@
 
 {% block content %}
 <div>
-    <h2>produit(s) et catégorie(s) contenants "{{user_input}}":</h2>
+    <h2>Substituts au produit {{ product.name }}:</h2>
 </div>
 <div class="searchpage-container">
     <div class="cards-product">
-        {% for product in products %}
+        {% for substitute in substitutes %}
         <a href="{% url 'product_detail' product.pk %}" class="card-link">
             <div class="card-product">
-                <h1 class="card-product-name">{{ product.name }}</h1>
-                <img src={{ product.picture }} alt="food picture">
-                <h2 class="card-product-nutriscore">{{ product.nutriscore }}</h2>
+                <h1 class="card-product-name">{{ substitute.name }}</h1>
+                <img src={{ substitute.picture }} alt="food picture">
+                <h2 class="card-product-nutriscore">{{ substitute.nutriscore }}</h2>
             </div>
         </a>
         {% endfor %}
