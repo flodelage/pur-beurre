@@ -9,16 +9,20 @@
 </div>
 <div class="searchpage-container">
     <div class="cards-product">
-        {% for product in products %}
-        <a href="{% url 'product_detail' product.pk %}" class="card-link">
-            <div class="card-product">
-                <h1 class="card-product-name">{{ product.name }}</h1>
-                <img src={{ product.picture }} alt="food picture">
-                <h2 class="card-product-nutriscore">{{ product.nutriscore }}</h2>
-            </div>
-        </a>
-        <a href="{% url 'substitutes_list' %}"><p>Trouver un substitut à ce produit</p></a>
-        {% endfor %}
+        {% if products.count == 0 %}
+            <p>Désolé votre recherche n'a donné aucun résultat</p>
+        {% else %}
+            {% for product in products %}
+            <a href="{% url 'product_detail' product.pk %}" class="card-link">
+                <div class="card-product">
+                    <h1 class="card-product-name">{{ product.name }}</h1>
+                    <img src={{ product.picture }} alt="food picture">
+                    <h2 class="card-product-nutriscore">{{ product.nutriscore }}</h2>
+                </div>
+            </a>
+            <a href="{% url 'substitutes_list'  %}"><p>Trouver un substitut à ce produit</p></a>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
