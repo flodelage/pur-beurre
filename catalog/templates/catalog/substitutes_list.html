@@ -10,7 +10,7 @@
 <div class="searchpage-container">
     <div class="cards-product">
         {% for substitute in substitutes %}
-        <a href="{% url 'product_detail' product.pk %}" class="card-link">
+        <a href="{% url 'product_detail' product_pk=substitute.id %}" class="card-link">
             <div class="card-product">
                 <h1 class="card-product-name">{{ substitute.name }}</h1>
                 <img src={{ substitute.picture }} alt="food picture">

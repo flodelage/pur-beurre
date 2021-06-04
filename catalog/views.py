@@ -29,6 +29,12 @@ def products_list(request):
     return render(request, 'catalog/products_list.html', context)
 
 
+def product_detail(request, product_pk):
+    product = Product.objects.get(pk=product_pk)
+    context = {'product': product,}
+    return render(request, 'catalog/product_detail.html', context)
+
+
 def substitutes_list(request, product_pk):
     product = Product.objects.get(pk=product_pk)
     categories = Category.objects.filter(products__id=product.id)
@@ -38,7 +44,7 @@ def substitutes_list(request, product_pk):
     return render(request, 'catalog/substitutes_list.html', context)
 
 
-def product_detail(request, product_pk):
-    product = Product.objects.get(pk=product_pk)
+def substitute_detail(request, substitute_pk):
+    product = Product.objects.get(pk=substitute_pk)
     context = {'product': product,}
     return render(request, 'catalog/product_detail.html', context)
