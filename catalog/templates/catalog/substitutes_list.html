@@ -7,6 +7,11 @@
 <div class="container-fluid py-5">
     <div class="row">
         <div class="col-12 py-5 text-center">
+            <h2>{{product.name}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 py-5 text-center">
             <h2>Vous pouvez remplacer cet aliment par:</h2>
         </div>
     </div>
@@ -38,10 +43,12 @@
                             </div>
                         </div>
                     </a>
-                    <div>
-                        <i class="far fa-save"></i>
-                        <p>sauvegarder</p>
-                    </div>
+                    <a href="" class="call-to-action-link">
+                        <div class="call-to-action">
+                            <i class="far fa-save"></i>
+                            <p>Sauvegarder</p>
+                        </div>
+                    </a>
                 </div>
                 {% endfor %}
             {% endif %}
