@@ -17,7 +17,7 @@
             {% else %}
                 {% for product in products %}
                 <div class="product">
-                    <a href="{% url 'substitutes_list' product.pk %}" class="card-product-link">
+                    <a href="{% url 'product_detail' product.pk %}" class="card-product-link">
                         <div class="card-product">
                             <img src={{ product.picture }} alt="food picture">
                             <div class="card-product-infos">
@@ -36,6 +36,12 @@
                                     <h2 class="card-product-nutriscore-e">E</h2>
                                 {% endif %}
                             </div>
+                        </div>
+                    </a>
+                    <a href="{% url 'substitutes_list' product.pk %}" class="call-to-action-link">
+                        <div class="call-to-action">
+                            <i class="fas fa-exchange-alt"></i>
+                            <p>Substituer</p>
                         </div>
                     </a>
                 </div>

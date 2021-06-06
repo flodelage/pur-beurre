@@ -11034,7 +11034,8 @@ header.masthead h1, header.masthead .h1 {
   overflow: hidden;
   background: white;
   border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  opacity: 0.8;
 }
 
 .card-product > img {
@@ -11150,11 +11151,34 @@ header.masthead h1, header.masthead .h1 {
 .card-product-link {
   text-decoration: none;
   color: #2B2A2A;
+  opacity: 0.8;
 }
 
-.substitute-link {
+.call-to-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  padding-top: 6px;
+}
+
+.call-to-action:hover {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  padding-top: 6px;
+  opacity: 0.5;
+}
+
+.call-to-action, p {
+  color: var(--bs-gray-dark);
+  padding-left: 5px;
+  margin: 0;
+}
+
+.call-to-action-link {
   text-decoration: none;
-  color: #2B2A2A;
 }
 
 /* products_list */
