@@ -1,28 +1,47 @@
 
-{% extends 'accounts/base.html' %}
+{% extends 'catalog/base.html' %}
 
 {% block title %}Produits{% endblock %}
 
 {% block content %}
-<div>
-    <h2>Produit(s) et catégorie(s) contenants "{{user_input}}":</h2>
-</div>
-<div class="searchpage-container">
-    <div class="cards-product">
-        {% if products.count == 0 %}
-            <p>Désolé votre recherche n'a donné aucun résultat</p>
-        {% else %}
-            {% for product in products %}
-            <a href="{% url 'product_detail' product.pk %}" class="card-link">
-                <div class="card-product">
-                    <h1 class="card-product-name">{{ product.name }}</h1>
-                    <img src={{ product.picture }} alt="food picture">
-                    <h2 class="card-product-nutriscore">{{ product.nutriscore }}</h2>
+<div class="container-fluid py-5">
+    <div class="row">
+        <div class="col-12 py-5 text-center">
+            <h2>Choisissez un aliment à substituer:</h2>
+        </div>
+    </div>
+    <div class="searchpage-container">
+        <div class="cards-product">
+            {% if products.count == 0 %}
+                <p>Désolé votre recherche n'a donné aucun résultat</p>
+            {% else %}
+                {% for product in products %}
+                <div class="product">
+                    <a href="{% url 'substitutes_list' product.pk %}" class="card-product-link">
+                        <div class="card-product">
+                            <img src={{ product.picture }} alt="food picture">
+                            <div class="card-product-infos">
+                                <div>
+                                    <h2 class="card-product-name">{{product.name}}</h2>
+                                </div>
+                                {% if product.nutriscore == "A" %}
+                                    <h2 class="card-product-nutriscore-a">A</h2>
+                                {% elif product.nutriscore == "B" %}
+                                    <h2 class="card-product-nutriscore-b">B</h2>
+                                {% elif product.nutriscore == "C" %}
+                                    <h2 class="card-product-nutriscore-c">C</h2>
+                                {% elif product.nutriscore == "D" %}
+                                    <h2 class="card-product-nutriscore-d">D</h2>
+                                {% elif product.nutriscore == "E" %}
+                                    <h2 class="card-product-nutriscore-e">E</h2>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            <a href="{% url 'substitutes_list' product.pk %}"><p>Trouver un substitut à ce produit</p></a>
-            {% endfor %}
-        {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock content %}

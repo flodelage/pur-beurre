@@ -1,5 +1,5 @@
 
-{% extends 'accounts/base.html' %}
+{% extends 'catalog/base.html' %}
 
 {% block title %}Produits{% endblock %}
 
@@ -7,7 +7,7 @@
 <div class="searchpage-container">
     <div class="cards-product">
         {% for favorite in favorites %}
-        <a href="{% url 'product_detail' favorite.substitute.pk %}" class="card-link">
+        <a href="{% url 'product_detail' product_pk=favorite.substitute.pk %}" class="card-link">
             <div class="card-product">
                 <h1 class="card-product-name">{{ favorite.substitute.name }}</h1>
                 <img src={{ favorite.substitute.picture }} alt="food picture">

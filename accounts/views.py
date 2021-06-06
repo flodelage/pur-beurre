@@ -31,9 +31,9 @@ def account(request):
 
 
 @login_required
-def favorites(request):
+def favorites_list(request):
     profile = request.user
     favorites = profile.favorite_set.all()
 
     context = {'profile': profile, 'favorites': favorites}
-    return render(request, 'accounts/favorites.html', context)
+    return render(request, 'accounts/favorites_list.html', context)

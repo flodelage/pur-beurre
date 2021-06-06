@@ -38,8 +38,10 @@
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
-  --bs-font-sans-serif: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-font-scope-one: "Scope One", sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --bs-font-open-sans: "Open Sans", sans-serif, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --bs-font-dancing-script: "Dancing Script", cursive;
+  --bs-font-bebas-neue: "Bebas Neue", cursive;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 
@@ -57,7 +59,7 @@
 
 body {
   margin: 0;
-  font-family: "Merriweather", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--bs-font-scope-one);
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -82,7 +84,7 @@ hr:not([size]) {
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--bs-font-open-sans);
   font-weight: 500;
   line-height: 1.2;
 }
@@ -230,7 +232,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: var(--bs-font-monospace);
+  font-family: var(--bs-font-scope-one);
   font-size: 1em;
   direction: ltr /* rtl:ignore */;
   unicode-bidi: bidi-override;
@@ -2918,7 +2920,7 @@ textarea.form-control-lg {
 
 .btn {
   display: inline-block;
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--bs-font-scope-one);
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
@@ -5520,7 +5522,7 @@ textarea.form-control-lg {
   z-index: 1080;
   display: block;
   margin: 0;
-  font-family: "Merriweather", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--bs-font-scope-one);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5622,7 +5624,7 @@ textarea.form-control-lg {
   z-index: 1070;
   display: block;
   max-width: 276px;
-  font-family: "Merriweather", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--bs-font-scope-one);
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -7374,8 +7376,8 @@ textarea.form-control-lg {
   color: #212529 !important;
 }
 
-.text-white {
-  color: #fff !important;
+.text-gray-dark {
+  color: var(--bs-gray-dark) !important;
 }
 
 .text-body {
@@ -7383,7 +7385,7 @@ textarea.form-control-lg {
 }
 
 .text-muted {
-  color: #6c757d !important;
+  color: #FFFFFF !important;
 }
 
 .text-black-50 {
@@ -7399,7 +7401,7 @@ textarea.form-control-lg {
 }
 
 .bg-primary {
-  background-color: #f4623a !important;
+  background-color: var(--bs-white) !important;
 }
 
 .bg-secondary {
@@ -7423,7 +7425,7 @@ textarea.form-control-lg {
 }
 
 .bg-light {
-  background-color: #f8f9fa !important;
+  background-color: #FFFFFF !important;
 }
 
 .bg-dark {
@@ -10855,10 +10857,20 @@ body {
 
 .page-section {
   padding: 8rem 0;
+  background-color: var(--bs-dark);
+  color: #FFFFFF;
+}
+
+.text-gray-dark-75 {
+  color: var(--bs-gray-dark) !important;
 }
 
 .text-white-75 {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: #FFFFFF !important;
+}
+
+.text-white {
+  color: #FFFFFF !important;
 }
 
 .btn-xl {
@@ -10879,51 +10891,53 @@ hr.divider {
 }
 
 hr.divider-light {
-  background-color: #fff;
+  background-color: var(--rooibos);
 }
 
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: #ffff;
+  background-color: var(--bs-white);
   transition: background-color 0.2s ease;
 }
 #mainNav .navbar-brand {
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: var(--bs-font-open-sans);
   font-weight: 700;
-  color: #212529;
+  color: var(--bs-dark);
+  font-weight: bold;
 }
 #mainNav .navbar-nav .nav-item .nav-link {
-  color: #6c757d;
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: var(--bs-dark);
+  font-family: var(--bs-font-open-sans);
   font-weight: 700;
   font-size: 0.9rem;
   padding: 0.75rem 0;
+  font-weight: bold;
 }
 #mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item .nav-link:active {
-  color: #f4623a;
+  color: var(--bs-dark);
 }
 #mainNav .navbar-nav .nav-item .nav-link.active {
-  color: #f4623a !important;
+  color: var(--bs-dark) !important;
 }
 @media (min-width: 992px) {
   #mainNav {
     box-shadow: none;
-    opacity: 0.6;
+    font-weight: bold;
   }
   #mainNav .navbar-brand {
-    color: var(--bs-gray-dark);
+    color: var(--bs-dark);
   }
   #mainNav .navbar-brand:hover {
-    color: var(--bs-gray-dark);
-    opacity: 0.7;
+    color: var(--bs-dark);
+    opacity: 0.6;
   }
   #mainNav .navbar-nav .nav-item .nav-link {
-    color: var(--bs-gray-dark);
+    color: var(--bs-dark);
     padding: 0 1rem;
   }
   #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: var(--bs-gray-dark);
-    opacity: 0.7;
+    color: var(--bs-dark);
+    opacity: 0.6;
   }
   #mainNav .navbar-nav .nav-item:last-child .nav-link {
     padding-right: 0;
@@ -10933,16 +10947,16 @@ hr.divider-light {
     background-color: #fff;
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #212529;
+    color: var(--bs-dark);
   }
   #mainNav.navbar-shrink .navbar-brand:hover {
-    color: #f4623a;
+    color: var(--bs-dark);
   }
   #mainNav.navbar-shrink .navbar-nav .nav-item .nav-link {
-    color: #212529;
+    color: var(--bs-dark);
   }
   #mainNav.navbar-shrink .navbar-nav .nav-item .nav-link:hover {
-    color: #f4623a;
+    color: var(--bs-dark);
   }
 }
 
@@ -10978,38 +10992,182 @@ header.masthead h1, header.masthead .h1 {
   }
 }
 
-#portfolio .container-fluid, #portfolio .container-sm, #portfolio .container-md, #portfolio .container-lg, #portfolio .container-xl, #portfolio .container-xxl {
-  max-width: 1920px;
+/* navbar */
+.navbar-logo {
+  height: 2rem;
 }
-#portfolio .container-fluid .portfolio-box, #portfolio .container-sm .portfolio-box, #portfolio .container-md .portfolio-box, #portfolio .container-lg .portfolio-box, #portfolio .container-xl .portfolio-box, #portfolio .container-xxl .portfolio-box {
-  position: relative;
-  display: block;
+.navbar-title {
+  font-family: var(--bs-font-dancing-script);
+  font-size: 2rem;
+  margin: 0;
 }
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption, #portfolio .container-sm .portfolio-box .portfolio-box-caption, #portfolio .container-md .portfolio-box .portfolio-box-caption, #portfolio .container-lg .portfolio-box .portfolio-box-caption, #portfolio .container-xl .portfolio-box .portfolio-box-caption, #portfolio .container-xxl .portfolio-box .portfolio-box-caption {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+
+/* footer */
+.footer-link {
+  text-decoration: none;
+  color: var(--bs-gray-dark)
+}
+
+/* home */
+.img-tatou-home {
+  height: 15rem;
+}
+
+.img-remy-home {
+  height: 15rem;
+  width: 13rem;
+}
+
+.image-about, p {
+  color: var(--bs-gray-dark);
+}
+
+/* card product */
+.card-product {
+  overflow: hidden;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.card-product:hover {
+  overflow: hidden;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+.card-product > img {
+  height: 300px;
   width: 100%;
-  height: 100%;
+  object-fit: cover;
+}
+
+.card-product h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product .card-product-infos {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+.card-product-infos .card-product-nutriscore-a {
   position: absolute;
-  bottom: 0;
+  right: 1px;
+  top: -299px;
+  width: 40px;
+  height: 70px;
+  background-color: #257f3d;
+  border-radius: 50px;
+  border: white 3px solid;
   text-align: center;
-  opacity: 0;
-  color: #fff;
-  background: rgba(244, 98, 58, 0.9);
-  transition: opacity 0.25s ease;
+  justify-content: center;
+  font-size: 2.7rem;
+  padding: 7px;
+  color: white;
+  font-family: var(--bs-font-bebas-neue);
+}
+
+.card-product-infos .card-product-nutriscore-b {
+  position: absolute;
+  right: 1px;
+  top: -299px;
+  width: 40px;
+  height: 70px;
+  background-color: #85bc22;
+  border-radius: 50px;
+  border: white 3px solid;
   text-align: center;
+  justify-content: center;
+  font-size: 2.7rem;
+  padding: 7px;
+  color: white;
+  font-family: var(--bs-font-bebas-neue);
 }
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-sm .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-md .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-lg .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-xl .portfolio-box .portfolio-box-caption .project-category, #portfolio .container-xxl .portfolio-box .portfolio-box-caption .project-category {
-  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
+
+.card-product-infos .card-product-nutriscore-c {
+  position: absolute;
+  right: 1px;
+  top: -299px;
+  width: 40px;
+  height: 70px;
+  background-color: #fecc00;
+  border-radius: 50px;
+  border: white 3px solid;
+  text-align: center;
+  justify-content: center;
+  font-size: 2.7rem;
+  padding: 7px;
+  color: white;
+  font-family: var(--bs-font-bebas-neue);
 }
-#portfolio .container-fluid .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-sm .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-md .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-lg .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-xl .portfolio-box .portfolio-box-caption .project-name, #portfolio .container-xxl .portfolio-box .portfolio-box-caption .project-name {
-  font-size: 1.2rem;
+
+.card-product-infos .card-product-nutriscore-d {
+  position: absolute;
+  right: 1px;
+  top: -299px;
+  width: 40px;
+  height: 70px;
+  background-color: #f07c01;
+  border-radius: 50px;
+  border: white 3px solid;
+  text-align: center;
+  justify-content: center;
+  font-size: 2.7rem;
+  padding: 7px;
+  color: white;
+  font-family: var(--bs-font-bebas-neue);
 }
-#portfolio .container-fluid .portfolio-box:hover .portfolio-box-caption, #portfolio .container-sm .portfolio-box:hover .portfolio-box-caption, #portfolio .container-md .portfolio-box:hover .portfolio-box-caption, #portfolio .container-lg .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xl .portfolio-box:hover .portfolio-box-caption, #portfolio .container-xxl .portfolio-box:hover .portfolio-box-caption {
-  opacity: 1;
+
+.card-product-infos .card-product-nutriscore-e {
+  position: absolute;
+  right: 1px;
+  top: -299px;
+  width: 40px;
+  height: 70px;
+  background-color: #e62c0f;
+  border-radius: 50px;
+  border: white 3px solid;
+  text-align: center;
+  justify-content: center;
+  font-size: 2.7rem;
+  padding: 7px;
+  color: white;
+  font-family: var(--bs-font-bebas-neue);
+}
+
+.card-product-name {
+  font-family: var(--bs-font-open-sans);
+  color: var(--bs-gray-dark);
+}
+
+.card-product-link {
+  text-decoration: none;
+  color: #2B2A2A;
+}
+
+.substitute-link {
+  text-decoration: none;
+  color: #2B2A2A;
+}
+
+/* products_list */
+.searchpage-container {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}
+
+.searchpage-container .cards-product {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 32px;
+  width: 90%;
+  padding: 24px;
 }

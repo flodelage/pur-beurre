@@ -8,5 +8,5 @@ from accounts import views
 urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('account/', views.account, name='account'),
-    path('favorites/', views.favorites, name="favorites"),
+    path('favorites/', views.favorites_list, name="favorites"),
 ]

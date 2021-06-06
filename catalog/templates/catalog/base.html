@@ -6,31 +6,40 @@
     <meta name="author" content="">
     <title>{% block title %}{% endblock %}</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="static/catalog/assets/img/logo-pur-beurre-favicon.png">
+    <!-- Font Awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
     <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Scope+One" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <!-- SimpleLightbox plugin CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/static/accounts/css/main.css" rel="stylesheet">
+    <link href="/static/catalog/css/main.css" rel="stylesheet">
   </head>
   <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/">Pur Beurre</a>
+        <div class="text-start">
+          <a class="navbar-brand" href="/"> <img class="navbar-logo" src="static/catalog/assets/img/logo-pur-beurre.png" alt="logo pur beurre"> </a>
+        </div>
+        <div class="text-start">
+          <h5 class="navbar-title">Pur Beurre</h5> </a>
+        </div>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto my-2 my-lg-0">
               {% if user.is_authenticated %}
-              <li class="nav-item"><a class="nav-link" href="/accounts/account">Compte</a></li>
-              <li class="nav-item"><a class="nav-link" href="/accounts/favorites">Favoris</a></li>
-              <li class="nav-item"><a class="nav-link" href="/accounts/logout">Déconnexion</a></li>
+              <li class="nav-item"><a class="nav-link" href="/accounts/account"><i class="fas fa-user"></i></a></li>
+              <li class="nav-item"><a class="nav-link" href="/accounts/favorites"><i class="fas fa-heart"></i></a></li>
+              <li class="nav-item"><a class="nav-link" href="/accounts/logout"><i class="fas fa-sign-out-alt"></i></a></li>
               {% else %}
-              <li class="nav-item"><a class="nav-link" href="/accounts/login">Connexion</a></li>
+              <li class="nav-item"><a class="nav-link" href="/accounts/login"><i class="fas fa-user"></i></a></li>
               {% endif %}
             </ul>
         </div>
@@ -38,5 +47,26 @@
     </nav>
     {% block content %}
     {% endblock %}
+      <!-- Footer-->
+      <footer class="bg-light fixed-bottom">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-lg-6 text-center">
+                  <a class="footer-link" href="{% url 'legal_mentions' %}">Mentions légales</a>
+                </div>
+                <div class="col-lg-6 text-center">
+                  <a class="footer-link" href="{% url 'home' %}">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SimpleLightbox plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
   </body>
   </html>

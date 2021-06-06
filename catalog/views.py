@@ -25,6 +25,7 @@ def products_list(request):
                 products = Product.objects.filter(
                     Q(name__icontains=user_input) | Q(categories__name__icontains=user_input)
                 )
+    products = set(products)
     context = {'user_input': user_input, 'products' : products,}
     return render(request, 'catalog/products_list.html', context)
 
@@ -48,3 +49,7 @@ def substitute_detail(request, substitute_pk):
     product = Product.objects.get(pk=substitute_pk)
     context = {'product': product,}
     return render(request, 'catalog/product_detail.html', context)
+
+
+def legal_mentions(request):
+    return render(request, 'catalog/legal_mentions.html')
