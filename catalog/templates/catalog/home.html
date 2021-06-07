@@ -17,9 +17,7 @@
                     <form class="form-inline" method="POST" action="{% url 'products_list' %}">
                         {% csrf_token %}
                         {{ form }}
-                        <!-- <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" id="inputProduct" placeholder="Produit"> -->
-                        <button type="submit" class="btn btn-primary mb-2">Chercher</button>
+                        <button type="submit" class="btn btn-primary">Chercher</button>
                         </div>
                     </form>
                 </div>

@@ -11022,6 +11022,10 @@ header.masthead h1, header.masthead .h1 {
   color: var(--bs-gray-dark);
 }
 
+#id_search {
+  padding: 5px 200px 5px 5px;
+}
+
 /* card product */
 .card-product {
   overflow: hidden;
@@ -11247,7 +11251,7 @@ header.masthead h1, header.masthead .h1 {
   text-align: center;
   text-decoration: none;
   color: #FFFFFF;
-  background-color: var(--biscuit);
+  background-color: var(--caramel);
   border-radius: 2px;
   padding: 5px;
 }

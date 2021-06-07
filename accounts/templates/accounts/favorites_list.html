@@ -1,20 +1,54 @@
 
 {% extends 'catalog/base.html' %}
 
+
 {% block title %}Produits{% endblock %}
 
 {% block content %}
-<div class="searchpage-container">
-    <div class="cards-product">
-        {% for favorite in favorites %}
-        <a href="{% url 'product_detail' product_pk=favorite.substitute.pk %}" class="card-link">
-            <div class="card-product">
-                <h1 class="card-product-name">{{ favorite.substitute.name }}</h1>
-                <img src={{ favorite.substitute.picture }} alt="food picture">
-                <h2 class="card-product-nutriscore">{{ favorite.substitute.nutriscore }}</h2>
-            </div>
-        </a>
-        {% endfor %}
+<div class="container-fluid py-5 px-0">
+    <div class="row">
+        <div class="col-12 py-5 text-center">
+            <h2>Mes aliments</h2>
+        </div>
+    </div>
+    <div class="searchpage-container">
+        <div class="cards-product">
+            {% if favorites.count == 0 %}
+                <p>Aucun aliment sauvegardé</p>
+            {% else %}
+                {% for favorite in favorites %}
+                <div class="product">
+                    <a href="{% url 'product_detail' favorite.substitute.pk %}" class="card-product-link">
+                        <div class="card-product">
+                            <img src={{ favorite.substitute.picture }} alt="food picture">
+                            <div class="card-product-infos">
+                                <div>
+                                    <h2 class="card-product-name">{{favorite.substitute.name}}</h2>
+                                </div>
+                                {% if favorite.substitute.nutriscore == "A" %}
+                                    <h2 class="card-product-nutriscore-a">A</h2>
+                                {% elif favorite.substitute.nutriscore == "B" %}
+                                    <h2 class="card-product-nutriscore-b">B</h2>
+                                {% elif favorite.substitute.nutriscore == "C" %}
+                                    <h2 class="card-product-nutriscore-c">C</h2>
+                                {% elif favorite.substitute.nutriscore == "D" %}
+                                    <h2 class="card-product-nutriscore-d">D</h2>
+                                {% elif favorite.substitute.nutriscore == "E" %}
+                                    <h2 class="card-product-nutriscore-e">E</h2>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{% url 'product_detail' favorite.product.pk %}" class="call-to-action-link">
+                        <div class="call-to-action">
+                            <i class="fas fa-eye"></i>
+                            <p>Voir le produit substitué</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock content %}
