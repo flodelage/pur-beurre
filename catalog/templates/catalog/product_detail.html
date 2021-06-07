@@ -1,16 +1,33 @@
 
 {% extends 'catalog/base.html' %}
 
+{% load static %}
+
+
 {% block title %}Produit{% endblock %}
 
 {% block content %}
-<div class= content>
-    <img src={{ product.picture }} alt="food picture">
+<div class= "container-fluid product-detail">
     <h2>{{ product.name }}</h2>
-    <p>Nutriscore: {{ product.nutriscore }}</p>
-    <p>Marque: {{ product.brand }}</p>
-    <p>Description: {{ product.description }}</p>
-    <p>Magasin(s): {{ product.store }}</p>
-    <a href={{ product.url }} target="_blank">Lien vers Openfoodfacts</a>
+    <img class="product-picture" src={{ product.picture }} alt="food picture">
+    <div class="row product-infos">
+        <div class="col-6 p-0 product-nutriscore">
+            {% if product.nutriscore == "A" %}
+                <img src={% static 'catalog/assets/img/nutriscore-a.svg' %} alt="nutriscore-a">
+            {% elif product.nutriscore == "B" %}
+                <img src={% static 'catalog/assets/img/nutriscore-b.svg' %} alt="nutriscore-b">
+            {% elif product.nutriscore == "C" %}
+                <img src={% static 'catalog/assets/img/nutriscore-c.svg' %} alt="nutriscore-c">
+            {% elif product.nutriscore == "D" %}
+                <img src={% static 'catalog/assets/img/nutriscore-d.svg' %} alt="nutriscore-d">
+            {% elif product.nutriscore == "E" %}
+                <img src={% static 'catalog/assets/img/nutriscore-e.svg' %} alt="nutriscore-e">
+            {% endif %}
+        </div>
+        <div class="col-6 p-0">
+            <p>repere nutritionnel</p>
+        </div>
+    </div>
+    <a class="openfoodfacts-link" href={{ product.url }} target="_blank">Voir la fiche d'OpenFoodFacts</a>
 </div>
 {% endblock content %}
