@@ -11168,7 +11168,7 @@ header.masthead h1, header.masthead .h1 {
   justify-content: flex-start;
   align-items: baseline;
   padding-top: 6px;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .call-to-action, p {
@@ -11194,4 +11194,22 @@ header.masthead h1, header.masthead .h1 {
   grid-gap: 32px;
   width: 90%;
   padding: 24px;
+}
+
+/* banner */
+.banner {
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0px;
+  margin-top: 20px;
+}
+
+.banner h2 {
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 32px;
+  font-weight: bold;
 }
