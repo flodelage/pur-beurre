@@ -12,7 +12,11 @@
     </div>
     <div class="row">
         <div class="col-12 pt-5 pb-3 px-0 text-center">
-            <h2>Vous pouvez remplacer cet aliment par:</h2>
+            {% if substitutes|length == 0 %}
+                <h2>Nous n'avons pas de substitut à proposer pour ce produit</h2>
+            {% else %}
+                <h2>Vous pouvez remplacer cet aliment par:</h2>
+            {% endif %}
         </div>
     </div>
     <div class="searchpage-container">
