@@ -7,15 +7,17 @@
 {% block content %}
 <div class="container-fluid py-5 px-0">
     <div class="row">
-        <div class="col-12 py-5 text-center">
-            <h2>Choisissez un aliment à substituer:</h2>
+        <div class="col-12 pt-5 pb-3 px-0 text-center">
+            {% if products|length == 0 %}
+                <h2>Votre recherche n'a donné aucun résultat</h2>
+            {% else %}
+                <h2>Choisissez un aliment à substituer:</h2>
+            {% endif %}
         </div>
     </div>
     <div class="searchpage-container">
         <div class="cards-product">
-            {% if products.count == 0 %}
-                <p>Désolé votre recherche n'a donné aucun résultat</p>
-            {% else %}
+            {% if products|length != 0 %}
                 {% for product in products %}
                 <div class="product">
                     <a href="{% url 'product_detail' product.pk %}" class="card-product-link">

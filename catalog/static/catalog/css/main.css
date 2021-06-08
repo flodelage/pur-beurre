@@ -11218,11 +11218,6 @@ header.masthead h1, header.masthead .h1 {
   font-weight: bold;
 }
 
-/* substitutes-list */
-.product-name-to-replace h2 {
-  margin: 0;
-}
-
 /* product_detail */
 .product-detail {
   justify-content: center;
@@ -11258,4 +11253,14 @@ header.masthead h1, header.masthead .h1 {
 
 .product-nutriscore img {
   height: 80px;
+}
+
+/* account */
+.profile-email {
+  justify-content: center;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: var(--caramel);
+  border-radius: 2px;
+  padding: 5px;
 }

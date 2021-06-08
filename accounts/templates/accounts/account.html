@@ -1,11 +1,23 @@
 
 {% extends 'catalog/base.html' %}
 
+{% load static %}
+
+
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-<h1>Ahoy</h1>
-<h2>{{ profile.username }} !</h2>
-
-<p>{{ profile.email }}</p>
+<div class="container-fluid py-5 px-0">
+    <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(accounts/static/accounts/assets/img/background-image-index.jpg);">
+        <div class="container">
+            <h2>Salut</h2>
+            <h2>{{profile.username | title}} !</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 pt-5 pb-3 px-0 text-center">
+            <p class="profile-email">{{profile.email}}</p>
+        </div>
+    </div>
+</div>
 {% endblock content %}
