@@ -11264,3 +11264,42 @@ header.masthead h1, header.masthead .h1 {
   border-radius: 2px;
   padding: 5px;
 }
+
+/* login / signup */
+.connection {
+  margin: 130px 0 0 0
+}
+
+.connection .title h2 {
+  padding: 16px 0;
+  margin: 0;
+}
+
+.connection .signup-link a {
+  text-decoration: none;
+  color: var(--bonbon);
+}
+
+.connection .signup-link a:hover {
+  text-decoration: none;
+  color: var(--bonbon);
+  opacity: 0.7;
+}
+
+.connection .form {
+  margin: 0 0 16px 0;
+}
+
+.connection .form .btn-primary{
+  background-color: var(--caramel);
+  color: white;
+  margin-top: 5px;
+}
+
+.connection .form p {
+  padding: 5px;
+}
+
+.connection .form li {
+  list-style: none;
+}
