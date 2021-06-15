@@ -1,5 +1,6 @@
 
 import requests
+import json
 from django.db.utils import IntegrityError
 
 from catalog.utils.exceptions import RequestResponse404
@@ -19,6 +20,7 @@ class Populate():
     which products from wich category have to be inserted
     """
 
+
     @classmethod
     def insert_categories(cls, categories_number):
         """
@@ -36,6 +38,7 @@ class Populate():
             if len(cls.categories_list) == categories_number:
                 break
         Category.objects.bulk_create(cls.categories_list)
+
 
     @classmethod
     def is_product_name_valid(cls, product_name):
@@ -58,6 +61,26 @@ class Populate():
         else:
             return False
 
+
+    @classmethod
+    def nutrients_cleaner(cls, nutrients_dictionary):
+        nutrients = {
+            "energy-kcal_100g": "",
+            "proteins_100g": "",
+            "fat_100g": "",
+            "saturated-fat_100g": "",
+            "carbohydrates_100g": "",
+            "sugars_100g": ""
+        }
+
+        for key in nutrients:
+            try:
+                nutrients[key] = nutrients_dictionary[key]
+            except KeyError:
+                continue
+        return nutrients
+
+
     @classmethod
     def insert_products(cls, pages_number):
         """
@@ -78,6 +101,7 @@ class Populate():
                                 Product.objects.create(
                                     name=product["product_name_fr"].strip(),
                                     nutriscore=product["nutriscore_grade"].upper(),
+                                    nutrients=cls.nutrients_cleaner(product["nutriments"]),
                                     brand=product["brands"],
                                     store=product["stores"],
                                     description=product["generic_name_fr"],
@@ -98,10 +122,11 @@ class Populate():
                     except KeyError:
                         continue
 
+
     @classmethod
-    def process(cls):
+    def process(cls, categories_number, pages_number):
         """
         Insert categories and products in database
         """
-        cls.insert_categories(categories_number=5)
-        cls.insert_products(pages_number=4)
+        cls.insert_categories(categories_number=categories_number)
+        cls.insert_products(pages_number=pages_number)

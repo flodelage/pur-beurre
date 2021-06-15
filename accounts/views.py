@@ -37,3 +37,15 @@ def favorites_list(request):
 
     context = {'profile': profile, 'favorites': favorites}
     return render(request, 'accounts/favorites_list.html', context)
+
+def favorite_save(request):
+    if request.method == 'POST':
+        product = request.POST.get('product')
+        substitute = request.POST.get('substitute')
+        profile = request.POST.get('profile')
+        Favorite.objects.create(
+            product=product,
+            substitute=substitute,
+            profile=profile
+        )
+    return JsonResponse({"status": 'Success'})

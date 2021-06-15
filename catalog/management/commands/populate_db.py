@@ -19,4 +19,4 @@ class Command(BaseCommand):
         #     cursor.execute("DROP SCHEMA public CASCADE;")
         #     cursor.execute("CREATE SCHEMA public;")
         # management.call_command('migrate')
-        Populate.process()
+        Populate.process(categories_number=5, pages_number=4)

@@ -15,6 +15,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200, unique=True)
     nutriscore = models.CharField(max_length=1)
+    nutrients = models.JSONField(null=True)
     brand = models.CharField(max_length=200, null=True)
     description = models.TextField(null=True)
     store = models.CharField(max_length=200, null=True)
