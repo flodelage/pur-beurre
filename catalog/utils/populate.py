@@ -65,19 +65,19 @@ class Populate():
     @classmethod
     def nutrients_cleaner(cls, nutrients_dictionary):
         nutrients = {
-            "energy-kcal_100g": "",
-            "proteins_100g": "",
-            "fat_100g": "",
-            "saturated-fat_100g": "",
-            "carbohydrates_100g": "",
-            "sugars_100g": ""
+            'kcal': "",
+            'proteins': "",
+            'fat': "",
+            'saturated_fat': "",
+            'carbohydrates': "",
+            'sugars': ""
         }
-
-        for key in nutrients:
-            try:
-                nutrients[key] = nutrients_dictionary[key]
-            except KeyError:
-                continue
+        nutrients['kcal'] = nutrients_dictionary['energy-kcal_100g']
+        nutrients['proteins'] = nutrients_dictionary['proteins_100g']
+        nutrients['fat'] = nutrients_dictionary['fat_100g']
+        nutrients['saturated_fat'] = nutrients_dictionary['saturated-fat_100g']
+        nutrients['carbohydrates'] = nutrients_dictionary['carbohydrates_100g']
+        nutrients['sugars'] = nutrients_dictionary['sugars_100g']
         return nutrients
 
 
