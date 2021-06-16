@@ -1,7 +1,7 @@
 
 from django.test import TestCase
 
-from catalog.models import Product, Category, Favorite, Profile
+from catalog.models import Category, Product, Favorite
 from accounts.models import Profile
 
 
@@ -42,6 +42,14 @@ class ProductModelTest(TestCase):
         Product.objects.create(
             name='produit de test',
             nutriscore='C',
+            nutrients={
+                'kcal': "250",
+                'proteins': "12",
+                'fat': "20",
+                'saturated_fat': "14",
+                'carbohydrates': "35",
+                'sugars': "17"
+            },
             brand='Nestlé',
             description='produit sans gluten',
             store= 'Auchan, Carrefour',
@@ -73,6 +81,19 @@ class ProductModelTest(TestCase):
         product = Product.objects.get(id=1)
         max_length = product._meta.get_field('nutriscore').max_length
         self.assertEquals(max_length, 1)
+
+    def test_nutrients(self):
+        product = Product.objects.get(id=1)
+        nutrients = product.nutrients
+        expected_result = {
+            'kcal': "250",
+            'proteins': "12",
+            'fat': "20",
+            'saturated_fat': "14",
+            'carbohydrates': "35",
+            'sugars': "17"
+        }
+        self.assertEquals(nutrients, expected_result)
 
     def test_brand(self):
         product = Product.objects.get(id=1)
@@ -144,6 +165,14 @@ class SomeFavoriteTest(TestCase):
         Product.objects.create(
             name='Nutella',
             nutriscore='D',
+            nutrients={
+                'kcal': "300",
+                'proteins': "23",
+                'fat': "12",
+                'saturated_fat': "10",
+                'carbohydrates': "35",
+                'sugars': "20"
+            },
             brand='Ferrero',
             description='huile de palme',
             store= 'Auchan, Carrefour',
@@ -154,6 +183,14 @@ class SomeFavoriteTest(TestCase):
         Product.objects.create(
             name='Nocciolata',
             nutriscore='C',
+            nutrients={
+                'kcal': "250",
+                'proteins': "12",
+                'fat': "20",
+                'saturated_fat': "14",
+                'carbohydrates': "35",
+                'sugars': "17"
+            },
             brand='Rigoni di Asiago',
             description='bio, sans huile de palme',
             store= 'Leclerc',
@@ -167,7 +204,7 @@ class SomeFavoriteTest(TestCase):
     def test_product(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(id=1)
+        profile = Profile.objects.get(email='vanrussom@django.com')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         self.assertEquals(product, favorite.product)
@@ -175,7 +212,7 @@ class SomeFavoriteTest(TestCase):
     def test_substitute(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(id=1)
+        profile = Profile.objects.get(email='vanrussom@django.com')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         self.assertEquals(substitute, favorite.substitute)
@@ -183,7 +220,7 @@ class SomeFavoriteTest(TestCase):
     def test_profile(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(id=1)
+        profile = Profile.objects.get(email='vanrussom@django.com')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         self.assertEquals(profile, favorite.profile)
@@ -191,7 +228,7 @@ class SomeFavoriteTest(TestCase):
     def test_object_str(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(id=1)
+        profile = Profile.objects.get(email='vanrussom@django.com')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         object_str = favorite.__str__()

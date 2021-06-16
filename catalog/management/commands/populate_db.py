@@ -15,8 +15,4 @@ class Command(BaseCommand):
     help = "Populates database with some Openfoodfacts' data"
 
     def handle(self, *args, **kwargs):
-        # with connection.cursor() as cursor:
-        #     cursor.execute("DROP SCHEMA public CASCADE;")
-        #     cursor.execute("CREATE SCHEMA public;")
-        # management.call_command('migrate')
         Populate.process(categories_number=5, pages_number=4)
