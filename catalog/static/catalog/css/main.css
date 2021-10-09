@@ -11238,7 +11238,7 @@ header.masthead h1, header.masthead .h1 {
 
 .product-detail .product-infos {
   margin: 0;
-  padding: 0;
+  padding: 0 0 50 0;
 }
 
 .product-detail .openfoodfacts-link {
