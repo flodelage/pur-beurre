@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </a>
-                    <a href="" class="call-to-action-link">
+                    <a href="" id="ajax-call" type="submit">
                         <div class="call-to-action" type="submit">
                             <i class="far fa-save"></i>
                             <p>Sauvegarder</p>
@@ -59,4 +59,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector("#ajax-call").addEventListener("click", event => {
+        let formData = new FormData();
+        formData.append('favorite', document.querySelector("#a").value);
+    })
+
+    const request = new Request('{% url "favorite_save" %}', {method: 'POST', body: formData});
+
+    fetch(request)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result);
+        })
+</script>
 {% endblock content %}

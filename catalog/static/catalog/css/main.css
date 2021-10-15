@@ -11185,6 +11185,10 @@ header.masthead h1, header.masthead .h1 {
   text-decoration: none;
 }
 
+#ajax-call {
+  text-decoration: none;
+}
+
 /* products_list */
 .searchpage-container {
   display: flex;

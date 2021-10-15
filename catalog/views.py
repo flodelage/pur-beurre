@@ -51,5 +51,10 @@ def substitute_detail(request, substitute_pk):
     return render(request, 'catalog/product_detail.html', context)
 
 
+def favorite_save(request):
+    favorite = request.POST.get("favorite")
+    return JsonResponse({"favorite": favorite})
+
+
 def legal_mentions(request):
     return render(request, 'catalog/legal_mentions.html')

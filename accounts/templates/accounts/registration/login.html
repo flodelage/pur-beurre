@@ -12,6 +12,7 @@
   </div>
   <div class="row">
     <div class="col-12 text-center justify-content-center form">
+      <p>{{ message }}</p>
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

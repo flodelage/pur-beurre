@@ -1,25 +1,49 @@
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from django.contrib.auth import logout
+from django.views.generic import View
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.conf import settings
 
-from .forms import ProfileCreationForm
+from .forms import ProfileCreationForm, ProfileChangeForm
 from accounts.models import Profile
 from catalog.models import Favorite
 
 
-class SignUpView(CreateView):
-    form_class = ProfileCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'accounts/registration/signup.html'
+def signup(request):
+    form = ProfileCreationForm()
+    if request.method == 'POST':
+        form = ProfileCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
+    return render(request, 'accounts/registration/signup.html', context={'form': form})
 
 
-def logout_request(request):
+def log_in(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+            )
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'accounts/registration/login.html', context={'form': form})
+
+
+def log_out(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    return redirect(settings.LOGIN_REDIRECT_URL)
 
 
 @login_required
@@ -37,16 +61,3 @@ def favorites_list(request):
 
     context = {'profile': profile, 'favorites': favorites}
     return render(request, 'accounts/favorites_list.html', context)
-
-
-def favorite_save(request):
-    if request.method == 'POST':
-        product = request.POST.get('product')
-        substitute = request.POST.get('substitute')
-        profile = request.POST.get('profile')
-        Favorite.objects.create(
-            product=product,
-            substitute=substitute,
-            profile=profile
-        )
-    return JsonResponse({"status": 'Success'})
