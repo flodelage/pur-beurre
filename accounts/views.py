@@ -10,35 +10,40 @@ from django.http import HttpResponse
 from django.conf import settings
 
 from .forms import ProfileCreationForm, ProfileChangeForm
-from accounts.models import Profile
 from catalog.models import Favorite
+from catalog.forms import NavSearchForm
 
 
 def signup(request):
-    form = ProfileCreationForm()
+    navbar_form = NavSearchForm()
+    signup_form = AuthenticationForm = ProfileCreationForm()
     if request.method == 'POST':
-        form = ProfileCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
+        signup_form = AuthenticationForm = ProfileCreationForm(request.POST)
+        if signup_form.is_valid():
+            user = signup_form.save()
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
-    return render(request, 'accounts/registration/signup.html', context={'form': form})
+    context = {'navbar_form': navbar_form, 'signup_form': signup_form}
+    return render(request, 'accounts/registration/signup.html', context)
 
 
 def log_in(request):
+    navbar_form = NavSearchForm()
+    auth_form = AuthenticationForm()
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
+        auth_form = AuthenticationForm(data=request.POST)
+        if auth_form.is_valid():
             user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'],
+                username=auth_form.cleaned_data['username'],
+                password=auth_form.cleaned_data['password'],
             )
             if user is not None:
                 login(request, user)
                 return redirect('home')
     else:
-        form = AuthenticationForm()
-    return render(request, 'accounts/registration/login.html', context={'form': form})
+        auth_form = AuthenticationForm()
+    context = {'navbar_form': navbar_form, 'auth_form': auth_form}
+    return render(request, 'accounts/registration/login.html', context)
 
 
 def log_out(request):
@@ -48,16 +53,16 @@ def log_out(request):
 
 @login_required
 def account(request):
+    navbar_form = NavSearchForm()
     profile = request.user
-
-    context = {'profile': profile,}
+    context = { 'navbar_form': navbar_form, 'profile': profile,}
     return render(request, 'accounts/account.html', context)
 
 
 @login_required
 def favorites_list(request):
+    navbar_form = NavSearchForm()
     profile = request.user
     favorites = profile.favorite_set.all()
-
-    context = {'profile': profile, 'favorites': favorites}
+    context = {'navbar_form': navbar_form, 'profile': profile, 'favorites': favorites}
     return render(request, 'accounts/favorites_list.html', context)
