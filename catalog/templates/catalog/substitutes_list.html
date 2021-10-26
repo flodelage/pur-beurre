@@ -25,53 +25,44 @@
                 <p>Désolé votre recherche n'a donné aucun résultat</p>
             {% else %}
                 {% for substitute in substitutes %}
-                <div class="product">
-                    <a href="{% url 'product_detail' product_pk=substitute.id %}" class="card-product-link">
-                        <div class="card-product">
-                            <img src={{ substitute.picture }} alt="food picture">
-                            <div class="card-product-infos">
-                                <div>
-                                    <h2 class="card-product-name">{{substitute.name}}</h2>
+                    <div class="product">
+                        <a href="{% url 'product_detail' product_pk=substitute.id %}" class="card-product-link">
+                            <div class="card-product">
+                                <img src={{ substitute.picture }} alt="food picture">
+                                <div class="card-product-infos">
+                                    <div>
+                                        <h2 class="card-product-name">{{substitute.name}}</h2>
+                                    </div>
+                                    {% if substitute.nutriscore == "A" %}
+                                        <h2 class="card-product-nutriscore-a">A</h2>
+                                    {% elif substitute.nutriscore == "B" %}
+                                        <h2 class="card-product-nutriscore-b">B</h2>
+                                    {% elif substitute.nutriscore == "C" %}
+                                        <h2 class="card-product-nutriscore-c">C</h2>
+                                    {% elif substitute.nutriscore == "D" %}
+                                        <h2 class="card-product-nutriscore-d">D</h2>
+                                    {% elif substitute.nutriscore == "E" %}
+                                        <h2 class="card-product-nutriscore-e">E</h2>
+                                    {% endif %}
                                 </div>
-                                {% if substitute.nutriscore == "A" %}
-                                    <h2 class="card-product-nutriscore-a">A</h2>
-                                {% elif substitute.nutriscore == "B" %}
-                                    <h2 class="card-product-nutriscore-b">B</h2>
-                                {% elif substitute.nutriscore == "C" %}
-                                    <h2 class="card-product-nutriscore-c">C</h2>
-                                {% elif substitute.nutriscore == "D" %}
-                                    <h2 class="card-product-nutriscore-d">D</h2>
-                                {% elif substitute.nutriscore == "E" %}
-                                    <h2 class="card-product-nutriscore-e">E</h2>
-                                {% endif %}
                             </div>
-                        </div>
-                    </a>
-                    <a href="" id="ajax-call" type="submit">
-                        <div class="call-to-action" type="submit">
-                            <i class="far fa-save"></i>
-                            <p>Sauvegarder</p>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                        <form id="favorite-save-form" method="POST" action="{% url 'favorite_save' product_pk=product.id substitute_pk=substitute.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="data"/>
+                        </form>
+                        <a href="#" onclick='document.getElementById("favorite-save-form").submit()'>
+                            <div class="call-to-action" >
+                                <i class="far fa-save"></i>
+                                <p>Sauvegarder</p>
+                            </div>
+                        </a>
+                    </div>
+
                 {% endfor %}
             {% endif %}
         </div>
     </div>
 </div>
 
-<script>
-    document.querySelector("#ajax-call").addEventListener("click", event => {
-        let formData = new FormData();
-        formData.append('favorite', document.querySelector("#a").value);
-    })
-
-    const request = new Request('{% url "favorite_save" %}', {method: 'POST', body: formData});
-
-    fetch(request)
-        .then(response => response.json())
-        .then(result => {
-            console.log(result);
-        })
-</script>
 {% endblock content %}

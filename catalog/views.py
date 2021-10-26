@@ -1,9 +1,10 @@
 
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.db.models import Q
 
-from .models import Product, Category
+from .models import Product, Category, Favorite
 from .forms import SearchForm, HomeSearchForm, NavSearchForm
 
 
@@ -50,15 +51,15 @@ def substitutes_list(request, product_pk):
     return render(request, 'catalog/substitutes_list.html', context)
 
 
-def substitute_detail(request, substitute_pk):
-    product = Product.objects.get(pk=substitute_pk)
-    context = {'product': product,}
-    return render(request, 'catalog/product_detail.html', context)
-
-
-def favorite_save(request):
-    favorite = request.POST.get("favorite")
-    return JsonResponse({"favorite": favorite})
+def favorite_save(request, product_pk, substitute_pk):
+    if request.method == 'POST':
+        product = Product.objects.get(pk=product_pk)
+        substitute = Product.objects.get(pk=substitute_pk)
+        profile = request.user
+        favorite = Favorite(product=product, substitute=substitute, profile=profile)
+        favorite.save()
+        return redirect(reverse('substitutes_list', kwargs={'product_pk': product.id}))
+    return HttpResponseRedirect(request.path)
 
 
 def legal_mentions(request):

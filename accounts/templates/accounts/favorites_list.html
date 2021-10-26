@@ -39,10 +39,10 @@
                             </div>
                         </div>
                     </a>
-                    <a href="{% url 'product_detail' favorite.product.pk %}" class="call-to-action-link">
+                    <a href="{% url 'delete_favorite' favorite.pk %}" class="call-to-action-link">
                         <div class="call-to-action">
-                            <i class="fas fa-eye"></i>
-                            <p>Voir le produit substitué</p>
+                            <i class="far fa-trash-alt"></i>
+                            <p>Supprimer</p>
                         </div>
                     </a>
                 </div>

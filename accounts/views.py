@@ -1,6 +1,6 @@
 
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
@@ -66,3 +66,8 @@ def favorites_list(request):
     favorites = profile.favorite_set.all()
     context = {'navbar_form': navbar_form, 'profile': profile, 'favorites': favorites}
     return render(request, 'accounts/favorites_list.html', context)
+
+def delete_favorite(request, favorite_pk):
+    favorite = Favorite.objects.get(id=favorite_pk)
+    favorite.delete()
+    return redirect('favorites')
