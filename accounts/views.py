@@ -67,6 +67,14 @@ def favorites_list(request):
     context = {'navbar_form': navbar_form, 'profile': profile, 'favorites': favorites}
     return render(request, 'accounts/favorites_list.html', context)
 
+
+def favorite_detail(request, favorite_pk):
+    navbar_form = NavSearchForm()
+    favorite = Favorite.objects.get(id=favorite_pk)
+    context = {'navbar_form': navbar_form, 'favorite': favorite}
+    return render(request, 'accounts/favorite_detail.html', context)
+
+
 def delete_favorite(request, favorite_pk):
     favorite = Favorite.objects.get(id=favorite_pk)
     favorite.delete()

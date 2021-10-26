@@ -18,7 +18,7 @@
             {% else %}
                 {% for favorite in favorites %}
                 <div class="product">
-                    <a href="{% url 'product_detail' favorite.substitute.pk %}" class="card-product-link">
+                    <a href="{% url 'favorite_detail' favorite.pk %}" class="card-product-link">
                         <div class="card-product">
                             <img src={{ favorite.substitute.picture }} alt="food picture">
                             <div class="card-product-infos">
@@ -41,7 +41,7 @@
                     </a>
                     <a href="{% url 'delete_favorite' favorite.pk %}" class="call-to-action-link">
                         <div class="call-to-action">
-                            <i class="far fa-trash-alt"></i>
+                            <i class="fas fa-trash-alt"></i>
                             <p>Supprimer</p>
                         </div>
                     </a>
