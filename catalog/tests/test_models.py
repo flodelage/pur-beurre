@@ -30,8 +30,10 @@ class CategoryModelTest(TestCase):
     def test_object_str(self):
         category = Category.objects.get(id=1)
         object_str = category.__str__()
-        self.assertEquals(object_str,
-                          f"Catégorie {category.pk}: {category.name}")
+        self.assertEquals(
+            object_str,
+            f"Catégorie {category.pk}: {category.name}"
+        )
 
 
 class ProductModelTest(TestCase):
@@ -153,8 +155,10 @@ class ProductModelTest(TestCase):
     def test_object_str(self):
         product = Product.objects.get(id=1)
         object_str = product.__str__()
-        self.assertEquals(object_str,
-                          f"""Produit {product.pk}: {product.name} / Nutriscore: {product.nutriscore} / Marque(s): {product.brand} / Url: {product.url}""")
+        self.assertEquals(
+            object_str,
+            f"""Produit {product.pk}: {product.name} / Nutriscore: {product.nutriscore} / Marque(s): {product.brand} / Url: {product.url}"""
+        )
 
 
 class SomeFavoriteTest(TestCase):
@@ -198,13 +202,13 @@ class SomeFavoriteTest(TestCase):
             url='https://fr.openfoodfacts.org/produit/183647/Nocciolata'
         )
 
-        Profile.objects.create(email='vanrussom@django.com', password='Django56789')
+        Profile.objects.create(username='vanrussom', email='vanrussom@django.com', password='Django56789')
 
 
     def test_product(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(email='vanrussom@django.com')
+        profile = Profile.objects.get(username='vanrussom')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         self.assertEquals(product, favorite.product)
@@ -212,7 +216,7 @@ class SomeFavoriteTest(TestCase):
     def test_substitute(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(email='vanrussom@django.com')
+        profile = Profile.objects.get(username='vanrussom')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         self.assertEquals(substitute, favorite.substitute)
@@ -220,15 +224,26 @@ class SomeFavoriteTest(TestCase):
     def test_profile(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(email='vanrussom@django.com')
+        profile = Profile.objects.get(username='vanrussom')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         self.assertEquals(profile, favorite.profile)
 
+    def test_unique_together(self):
+        product = Product.objects.get(id=2)
+        substitute = Product.objects.get(id=3)
+        profile = Profile.objects.get(username='vanrussom')
+
+        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        unique_together = (('substitute', 'product', 'profile'),)
+        self.assertEquals(unique_together, favorite._meta.unique_together)
+
+
+
     def test_object_str(self):
         product = Product.objects.get(id=2)
         substitute = Product.objects.get(id=3)
-        profile = Profile.objects.get(email='vanrussom@django.com')
+        profile = Profile.objects.get(username='vanrussom')
 
         favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
         object_str = favorite.__str__()
