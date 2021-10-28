@@ -34,5 +34,8 @@ class Favorite(models.Model):
     product = models.ForeignKey(Product, related_name="favorites_as_product", on_delete=models.CASCADE)
     profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    class Meta:
+        unique_together = ('substitute', 'product', 'profile')
+
     def __str__(self):
         return f"Favori {self.pk}: Substitut: {self.substitute} / Produit substitué: {self.product} / {self.profile}"

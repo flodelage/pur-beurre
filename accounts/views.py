@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib import messages
 
 from .forms import ProfileCreationForm, ProfileChangeForm
 from catalog.models import Favorite
@@ -47,6 +48,7 @@ def log_in(request):
 
 
 def log_out(request):
+    user = request.user
     logout(request)
     return redirect(settings.LOGIN_REDIRECT_URL)
 
@@ -77,5 +79,7 @@ def favorite_detail(request, favorite_pk):
 
 def delete_favorite(request, favorite_pk):
     favorite = Favorite.objects.get(id=favorite_pk)
-    favorite.delete()
+    if request.method == 'POST':
+        favorite.delete()
+        messages.success(request, f""""{favorite.substitute.name}" a bien été supprimé""")
     return redirect('favorites')

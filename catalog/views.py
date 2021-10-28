@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
+from django.contrib import messages
 
 from .models import Product, Category, Favorite
 from .forms import SearchForm, HomeSearchForm, NavSearchForm
@@ -52,14 +53,25 @@ def substitutes_list(request, product_pk):
 
 
 def favorite_save(request, product_pk, substitute_pk):
-    if request.method == 'POST':
-        product = Product.objects.get(pk=product_pk)
-        substitute = Product.objects.get(pk=substitute_pk)
-        profile = request.user
-        favorite = Favorite(product=product, substitute=substitute, profile=profile)
+    if request.method != 'POST':
+        return HttpResponseRedirect(request.path)
+
+    product = Product.objects.get(pk=product_pk)
+    substitute = Product.objects.get(pk=substitute_pk)
+    profile = request.user
+    favorite = Favorite(product=product, substitute=substitute, profile=profile)
+    try:
         favorite.save()
-        return redirect(reverse('substitutes_list', kwargs={'product_pk': product.id}))
-    return HttpResponseRedirect(request.path)
+        messages.success(
+            request, f""""{favorite.substitute.name}" a bien été enregistré"""
+        )
+    except:
+        messages.error(
+            request,
+            'Ce produit et ce substitut font déjà partie de vos favoris'
+        )
+
+    return redirect(reverse('substitutes_list', kwargs={'product_pk': product.id}))
 
 
 def legal_mentions(request):

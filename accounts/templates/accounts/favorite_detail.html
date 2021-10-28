@@ -47,12 +47,27 @@
                 <p>{{ favorite.product.name }}</p>
             </div>
         </a>
-        <a href="{% url 'delete_favorite' favorite.pk %}" class="call-to-action-link">
+
+        <form id="favorite-delete-form" method="POST" action="{% url 'delete_favorite' favorite.pk %}">
+            {% csrf_token %}
+            <input type="hidden" name="data"/>
+        </form>
+        <a href="#" onclick='document.getElementById("favorite-delete-form").submit()'>
             <div class="call-to-action">
                 <i class="fas fa-trash-alt"></i>
                 <p>Supprimer</p>
             </div>
         </a>
     </div>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert {{ message.tags }} alert-dismissible" role="alert" {% endif %}>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
 </div>
 {% endblock content %}

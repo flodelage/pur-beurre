@@ -11311,3 +11311,39 @@ header.masthead h1, header.masthead .h1 {
 .connection .form li {
   list-style: none;
 }
+
+/* alerts */
+.alert-secondary {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.97;
+}
+
+.alert-info {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.97;
+}
+
+.alert-success {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.97;
+}
+
+.alert-warning {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.97;
+}
+
+.alert-danger {
+  margin: 0 auto;
+  position: absolute;
+  z-index: 9999;
+  opacity: 0.97;
+}
