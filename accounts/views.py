@@ -70,6 +70,7 @@ def favorites_list(request):
     return render(request, 'accounts/favorites_list.html', context)
 
 
+@login_required
 def favorite_detail(request, favorite_pk):
     navbar_form = NavSearchForm()
     favorite = Favorite.objects.get(id=favorite_pk)
@@ -77,6 +78,7 @@ def favorite_detail(request, favorite_pk):
     return render(request, 'accounts/favorite_detail.html', context)
 
 
+@login_required
 def delete_favorite(request, favorite_pk):
     favorite = Favorite.objects.get(id=favorite_pk)
     if request.method == 'POST':
