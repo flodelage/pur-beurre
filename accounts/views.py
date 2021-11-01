@@ -47,6 +47,7 @@ def log_in(request):
     return render(request, 'accounts/registration/login.html', context)
 
 
+@login_required
 def log_out(request):
     user = request.user
     logout(request)

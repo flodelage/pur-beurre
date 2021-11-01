@@ -1,6 +1,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 
 from accounts.models import Profile
 from catalog.models import Product, Favorite
@@ -39,19 +40,6 @@ class LoginViewTest(TestCase):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'accounts/registration/login.html')
-
-
-# class LogoutViewTest(TestCase):
-
-#     def setUp(self):
-#         Profile.objects.create(username='usertest', email='usertest@gmail.com', password='m0t2passe')
-
-#     def test_logout_view_really_logout(self):
-#         user = Profile.objects.get(username='usertest')
-#         response = self.client.get(reverse('logout'))
-
-#         self.client.login(username=user.username, password=user.password)
-#         self.assertEqual(response.context['user'].is_active)
 
 
 class AccountViewTest(TestCase):
@@ -177,17 +165,33 @@ class FavoriteDetailViewTest(TestCase):
         self.assertTemplateUsed(response, 'accounts/favorite_detail.html')
 
 
-# class DeleteFavoriteViewTest(TestCase):
+class DeleteFavoriteViewTest(TestCase):
 
-#     def test_delete_favorite_view_url_exists_at_desired_location(self):
-#         response = self.client.get('favorite/id/delete/')
-#         self.assertEqual(response.status_code, 200)
+    def setUp(self):
+        nutella = Product.objects.create(
+            name='Nutella',
+            nutriscore='D',
+            url='https://fr.openfoodfacts.org/produit/47647/Nutella'
+        )
 
-#     def test_delete_favorite_view_url_accessible_by_name(self):
-#         response = self.client.get(reverse('delete_favorite'))
-#         self.assertEqual(response.status_code, 200)
+        nocciolata = Product.objects.create(
+            name='Nocciolata',
+            nutriscore='C',
+            url='https://fr.openfoodfacts.org/produit/183647/Nocciolata'
+        )
 
-#     def test_delete_favorite_view_uses_correct_template(self):
-#         response = self.client.get(reverse('favorites'))
-#         self.assertEqual(response.status_code, 200)
-#         self.assertTemplateUsed(response, 'accounts/favorite_detail.html')
+        user = Profile.objects.create(username='vanrussom', email='vanrussom@django.com')
+        user.set_password('Django56789')
+        user.save()
+
+        Favorite.objects.create(product=nutella, substitute=nocciolata, profile=user)
+
+    def test_delete_favorite_view(self):
+        user = Profile.objects.get(username='vanrussom')
+        login = self.client.login(username='vanrussom', password='Django56789')
+        favorite = Favorite.objects.all().first()
+        response = self.client.post(f'/accounts/favorite/{favorite.id}/delete/')
+        self.assertRedirects(response, '/accounts/favorites/')
+        # favorite has been deleted
+        with self.assertRaises(ObjectDoesNotExist):
+            Favorite.objects.get(id=favorite.id)

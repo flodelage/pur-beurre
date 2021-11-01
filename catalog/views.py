@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib import messages
 
 from .models import Product, Category, Favorite
-from .forms import SearchForm, HomeSearchForm, NavSearchForm
+from .forms import HomeSearchForm, NavSearchForm
 
 
 def home(request):
