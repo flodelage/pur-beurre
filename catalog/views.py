@@ -4,9 +4,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from .models import Product, Category, Favorite
-from .forms import HomeSearchForm, NavSearchForm
+from .forms import SearchForm, HomeSearchForm, NavSearchForm
 
 
 def home(request):
@@ -17,7 +18,7 @@ def home(request):
 
 
 def products_list(request):
-    navbar_form = NavSearchForm()
+    navbar_form = SearchForm()
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -28,10 +29,11 @@ def products_list(request):
                 products = Product.objects.filter(
                     Q(name__icontains=user_input) | Q(categories__name__icontains=user_input)
                 )
+        products = set(products)
+        context = {'navbar_form': navbar_form, 'user_input': user_input, 'products' : products,}
     else:
         navbar_form = NavSearchForm()
-    products = set(products)
-    context = {'navbar_form': navbar_form, 'user_input': user_input, 'products' : products,}
+        context = {'navbar_form': navbar_form,}
     return render(request, 'catalog/products_list.html', context)
 
 
@@ -52,6 +54,7 @@ def substitutes_list(request, product_pk):
     return render(request, 'catalog/substitutes_list.html', context)
 
 
+@login_required
 def favorite_save(request, product_pk, substitute_pk):
     if request.method != 'POST':
         return HttpResponseRedirect(request.path)

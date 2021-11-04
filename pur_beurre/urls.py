@@ -22,7 +22,7 @@ from catalog import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('legal-mentions', views.legal_mentions, name='legal_mentions'),
+    path('legal_mentions/', views.legal_mentions, name='legal_mentions'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
