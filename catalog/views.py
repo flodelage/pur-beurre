@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from .models import Product, Category, Favorite
 from .forms import SearchForm, HomeSearchForm, NavSearchForm
@@ -30,7 +31,7 @@ def products_list(request):
                     Q(name__icontains=user_input) | Q(categories__name__icontains=user_input)
                 )
         products = set(products)
-        context = {'navbar_form': navbar_form, 'user_input': user_input, 'products' : products,}
+        context = {'navbar_form': navbar_form, 'user_input': user_input, 'products': products,}
     else:
         navbar_form = NavSearchForm()
         context = {'navbar_form': navbar_form,}

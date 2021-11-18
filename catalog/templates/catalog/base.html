@@ -26,52 +26,46 @@
   </head>
   <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-      <div class="container px-4 px-lg-6">
-        <div class="text-start">
-          <a class="navbar-brand" href="/"> <img class="navbar-logo" src={% static 'catalog/assets/img/logo-pur-beurre.png' %} alt="logo pur beurre"> </a>
+    <nav class="fixed-top" id="navbar">
+      <a class="navbar-brand-link" href="/">
+        <div class="navbar-brand">
+          <img class="navbar-logo" src={% static 'catalog/assets/img/logo-pur-beurre.png' %} alt="logo pur beurre">
+          <h5 class="navbar-title">Pur Beurre</h5>
         </div>
-        <div class="text-start">
-          <h5 class="navbar-title">Pur Beurre</h5> </a>
-        </div>
+      </a>
 
-        <div class="col-lg-8 align-self-baseline">
-          <form class="form-inline" method="POST" action="{% url 'products_list' %}">
-              {% csrf_token %}
-              {{ navbar_form }}
-          </form>
-        </div>
+      <div class="navbar-search-and-links">
+        <form id="navbar-search" class="form-inline" method="POST" action="{% url 'products_list' %}">
+          {% csrf_token %}
+          {{ navbar_form }}
+        </form>
 
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto my-2 my-lg-0">
-              {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'account' %}"><i class="fas fa-user"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}"><i class="fas fa-heart"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a></li>
-              {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user"></i></a></li>
-              {% endif %}
-            </ul>
-        </div>
+        <ul class="navbar-links">
+          {% if user.is_authenticated %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'account' %}"><i class="fas fa-user"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'favorites' %}"><i class="fas fa-heart"></i></a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-user"></i></a></li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
     {% block content %}
     {% endblock %}
-      <!-- Footer-->
-      <footer class="bg-light fixed-bottom">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-6 text-center">
-                  <a class="footer-link" href="{% url 'legal_mentions' %}">Mentions légales</a>
-                </div>
-                <div class="col-lg-6 text-center">
-                  <a class="footer-link" href="{% anchor 'home' 'contact' %}">Contact</a>
-                </div>
-            </div>
+    <!-- Footer-->
+    <footer class="bg-light fixed-bottom">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-6 text-center">
+            <a class="footer-link" href="{% url 'legal_mentions' %}">Mentions légales</a>
+          </div>
+          <div class="col-6 text-center">
+            <a class="footer-link" href="{% anchor 'home' 'contact' %}">Contact</a>
+          </div>
         </div>
+      </div>
     </footer>
-
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
