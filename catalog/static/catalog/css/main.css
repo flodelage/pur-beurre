@@ -10850,7 +10850,7 @@ body {
 }
 
 .page-section {
-  padding: 8rem 0;
+  padding: 4rem 0;
   background-color: var(--bs-dark);
   color: #FFFFFF;
 }
@@ -10993,6 +10993,37 @@ header.masthead h1, header.masthead .h1 {
   align-items: center;
   background-color: #FFFFFF;
   padding: 0.5rem;
+  height: 80px;
+}
+@media screen and (max-width: 768px) {
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0.5rem;
+    height: 70px;
+  }
+}
+@media screen and (max-width: 425px) {
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0.5rem;
+    height: 56px;
+  }
+}
+@media screen and (max-width: 320px) {
+  #navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0.5rem;
+    height: 48px;
+  }
 }
 
 .navbar-brand-link {
@@ -11171,21 +11202,118 @@ header.masthead h1, header.masthead .h1 {
 }
 
 /* home */
+.masthead {
+  height: 100vh;
+}
+
 .img-tatou-home {
   height: 15rem;
+}
+@media screen and (max-width: 768px) {
+  .img-tatou-home {
+    height: 14rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .img-tatou-home {
+    height: 12rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .img-remy-home {
+    height: 11rem;
+  }
 }
 
 .img-remy-home {
   height: 15rem;
   width: 13rem;
 }
+@media screen and (max-width: 768px) {
+  .img-remy-home {
+    height: 14rem;
+    width: 12rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .img-remy-home {
+    height: 12rem;
+    width: 10rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .img-remy-home {
+    height: 11rem;
+    width: 9rem;
+  }
+}
 
-.image-about, p {
+@media screen and (max-width: 768px) {
+  .about, h2 {
+    color: var(--bs-gray-dark);
+    font-size: 1.7rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .about, h2 {
+    color: var(--bs-gray-dark);
+    font-size: 1.4rem;
+  }
+}
+
+.images-about, p {
   color: var(--bs-gray-dark);
+}
+@media screen and (max-width: 768px) {
+  .about, p {
+    color: var(--bs-gray-dark);
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  .about, p {
+    color: var(--bs-gray-dark);
+    font-size: 0.8rem;
+  }
 }
 
 #id_search {
   padding: 5px 0px 5px 5px;
+}
+
+@media screen and (max-width: 768px) {
+  #home-search-btn {
+    padding: 0;
+    height: 32px;
+    width: 88px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 425px) {
+  #home-search-btn {
+    padding: 0;
+    height: 28px;
+    width: 80px;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 320px) {
+  #home-search-btn {
+    padding: 0;
+    height: 26px;
+    width: 80px;
+  }
+}
+@media screen and (max-width: 319px) {
+  #home-search-btn {
+    padding: 0;
+    height: 24px;
+    width: 72px;
+  }
+}
+
+#contact p, h2{
+  color: #FFFFFF;
 }
 
 /* card product */
@@ -11210,10 +11338,25 @@ header.masthead h1, header.masthead .h1 {
   object-fit: cover;
 }
 
-.card-product h2 {
+.card-product h2, p {
   font-size: 1rem;
   font-weight: bold;
   margin: 0;
+}
+@media screen and (max-width: 1024px) {
+  .card-product h2, p {
+    font-size: 0.9rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .card-product h2, p {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .card-product h2, p {
+    font-size: 0.7rem;
+  }
 }
 
 .card-product .card-product-infos {
@@ -11365,8 +11508,25 @@ header.masthead h1, header.masthead .h1 {
   width: 90%;
   padding: 24px;
 }
-
+@media screen and (max-width: 1000px) {
+  .searchpage-container .cards-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 32px;
+    width: 90%;
+    padding: 24px;
+  }
+}
 @media screen and (max-width: 768px) {
+  .searchpage-container .cards-product {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 32px;
+    width: 90%;
+    padding: 24px;
+  }
+}
+@media screen and (max-width: 600px) {
   .searchpage-container .cards-product {
     display: grid;
     grid-template-columns: 1fr;
@@ -11381,7 +11541,6 @@ header.masthead h1, header.masthead .h1 {
   background-size: cover;
   background-position: center;
   padding: 150px 0px;
-  margin-top: 20px;
 }
 
 .banner h2 {
@@ -11436,13 +11595,75 @@ header.masthead h1, header.masthead .h1 {
 }
 
 /* account */
-.profile-email {
+#greetings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  #greetings h2 {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  #greetings h2 {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 375px) {
+  #greetings h2 {
+    font-size: 1.7rem;
+  }
+}
+@media screen and (max-width: 320px) {
+  #greetings h2 {
+    font-size: 1.6rem;
+  }
+}
+
+.user-infos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40%;
+}
+
+.user-email {
   justify-content: center;
   text-align: center;
-  color: #FFFFFF;
   background-color: var(--caramel);
   border-radius: 2px;
-  padding: 5px;
+  padding: 12px;
+}
+
+.user-email p {
+  font-family: var(--bs-font-scope-one);
+  font-size: 1rem;
+  color: #FFFFFF;
+}
+@media screen and (max-width: 768px) {
+  .user-email p {
+    font-family: var(--bs-font-scope-one);
+    font-size: 0.9rem;
+    color: #FFFFFF;
+  }
+}
+@media screen and (max-width: 425px) {
+  .user-email p {
+    font-family: var(--bs-font-scope-one);
+    font-size: 0.8rem;
+    color: #FFFFFF;
+  }
+}
+@media screen and (max-width: 320px) {
+  .user-email p {
+    font-family: var(--bs-font-scope-one);
+    font-size: 0.7rem;
+    color: #FFFFFF;
+  }
 }
 
 /* login / signup */

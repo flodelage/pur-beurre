@@ -9,15 +9,15 @@
         <div class="container px-4 px-lg-5 h-100">
             <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
                 <div class="col-lg-8 align-self-end">
-                    <h1 class="text-white font-weight-bold">Du gras, oui, mais de qualité !</h1>
+                    <h1 class="text-white font-weight-bold" id="home-title">Du gras, oui, mais de qualité !</h1>
                     <hr class="divider">
                 </div>
                 <div class="col-lg-8 align-self-baseline">
-                    <p class="text-white-75 mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</p>
-                    <form class="form-inline" method="POST" action="{% url 'products_list' %}">
+                    <p class="text-white-75 mb-5" id="home-slogan">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</p>
+                    <form class="form-inline" id="home-search" method="POST" action="{% url 'products_list' %}">
                         {% csrf_token %}
                         {{ home_form }}
-                        <button type="submit" class="btn btn-primary">Chercher</button>
+                        <button type="submit" class="btn btn-primary" id="home-search-btn">Chercher</button>
                     </form>
                 </div>
             </div>
@@ -36,11 +36,11 @@
                 </div>
             </div>
             <div class="images-about row">
-                <div class="col-lg-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <img class="img-tatou-home float-left" src="/static/catalog/assets/img/colette-tatou-full.png" alt="colette-tatou-image">
                     <p>Colette</p>
                 </div>
-                <div class="col-lg-6 text-center">
+                <div class="col-lg-6 col-md-6 text-center">
                     <img class="img-remy-home float-right" src="/static/catalog/assets/img/ratatouille-portrait.jpg" alt="remy-image">
                     <p>Remy</p>
                 </div>
@@ -58,13 +58,13 @@
                 </div>
             </div>
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                <div class="col-lg-4 text-center mb-3">
                     <i class="fas fa-phone fs-2 mb-3 text-muted"></i>
-                    <div>07.12.34.56.78</div>
+                    <p>07.12.34.56.78</p>
                 </div>
-                <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                <div class="col-lg-4 text-center mb-3">
                     <i class="fas fa-envelope fs-2 mb-3 text-muted"></i>
-                    <div>colette_et_remy@purbeurre.com</div>
+                    <p>colette_et_remy@purbeurre.com</p>
                 </div>
             </div>
         </div>
