@@ -7,11 +7,14 @@
 {% block title %}{{product.name}}{% endblock %}
 
 {% block content %}
-<div class= "container-fluid product-detail">
-    <h2>{{ product.name }}</h2>
-    <img class="product-picture" src={{ product.picture }} alt="food picture">
-    <div class="row product-infos">
-        <div class="col-4 p-0 text-end product-nutriscore">
+<div class="container-fluid py-5 px-0">
+    <div class="banner" id="product-detail-banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url({{product.picture}});">
+        <div class="container">
+            <h2>{{product.name}}</h2>
+        </div>
+    </div>
+    <div class="product-detail-infos">
+        <div class="product-nutriscore">
             {% if product.nutriscore == "A" %}
                 <img src={% static 'catalog/assets/img/nutriscore-a.svg' %} alt="nutriscore-a">
             {% elif product.nutriscore == "B" %}
@@ -24,11 +27,8 @@
                 <img src={% static 'catalog/assets/img/nutriscore-e.svg' %} alt="nutriscore-e">
             {% endif %}
         </div>
-        <div class="col-4 p-0">
-            <a class="openfoodfacts-link" href={{ product.url }} target="_blank">Voir la fiche d'OpenFoodFacts</a>
-        </div>
-        <div class="col-4 p-0 text-start nutrients-list">
-            <p>Valeurs nutritionnelles pour 100g:</p>
+        <div class="nutrients-list">
+            <p>Valeurs nutritionnelles (100g):</p>
             <ul>
                 <li>Energie: {{ product.nutrients.kcal }}Kcal</li>
                 <li>Protéines: {{ product.nutrients.proteins }}g</li>
@@ -38,6 +38,9 @@
                 <li>dont acides gras saturés: {{ product.nutrients.saturated_fat }}g</li>
             </ul>
         </div>
+    </div>
+    <div class="product-detail-link">
+        <a class="openfoodfacts-link" href={{ product.url }} target="_blank">Voir la fiche d'OpenFoodFacts</a>
     </div>
 </div>
 {% endblock content %}
