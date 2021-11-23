@@ -11312,7 +11312,7 @@ header.masthead h1, header.masthead .h1 {
   }
 }
 
-#contact p, h2{
+#contact p, #contact h2{
   color: #FFFFFF;
 }
 
@@ -11767,6 +11767,31 @@ font-size: 1rem;
 
 .connection .form li {
   list-style: none;
+  font-size: 0.8rem;
+}
+@media screen and (max-width: 768px) {
+  .connection .form li {
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .connection .form li {
+    font-size: 0.6rem;
+  }
+}
+
+.connection .form span {
+  font-size: 0.8rem;
+}
+@media screen and (max-width: 768px) {
+  .connection .form span {
+    font-size: 0.7rem;
+  }
+}
+@media screen and (max-width: 425px) {
+  .connection .form span {
+    font-size: 0.6rem;
+  }
 }
 
 /* alerts */
