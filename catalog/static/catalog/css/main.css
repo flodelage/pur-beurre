@@ -11501,6 +11501,11 @@ header.masthead h1, header.masthead .h1 {
   background-color: white;
 }
 
+.products-list-title h2 {
+  padding-left: 40px;
+  padding-right: 30px;
+}
+
 .searchpage-container .cards-product {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -11732,7 +11737,7 @@ font-size: 1rem;
 
 /* login / signup */
 .connection {
-  margin: 130px 0 0 0
+  margin: 100px 0 0 0
 }
 
 .connection .title h2 {
@@ -11792,6 +11797,14 @@ font-size: 1rem;
   .connection .form span {
     font-size: 0.6rem;
   }
+}
+
+.connection .form ul {
+  margin: 0;
+}
+
+.helptext {
+  display: block;
 }
 
 /* alerts */
