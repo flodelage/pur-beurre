@@ -11807,6 +11807,42 @@ font-size: 1rem;
   display: block;
 }
 
+/* favorite-detail */
+.favorite-more-infos {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 56px 0;
+}
+@media screen and (max-width: 768px) {
+  .favorite-more-infos {
+    padding: 40px 0;
+  }
+}
+@media screen and (max-width: 375px) {
+  .favorite-more-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 0;
+  }
+}
+
+.favorite-more-infos p {
+  font-size: 1rem;
+}
+@media screen and (max-width: 600px) {
+  .favorite-more-infos p {
+    font-size: 0.9rem;
+    }
+}
+
+.substituted-product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* alerts */
 .alert-secondary {
   margin: 0 auto;
