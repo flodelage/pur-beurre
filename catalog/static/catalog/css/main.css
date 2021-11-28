@@ -11878,3 +11878,59 @@ font-size: 1rem;
   z-index: 9999;
   opacity: 0.97;
 }
+
+/* legal_mentions */
+.legal-mentions-container {
+  height: 100vh;
+}
+
+.legal-mentions-header {
+  margin-top: 64px;
+}
+@media screen and (max-width: 425px) {
+  .legal-mentions-header {
+    margin-top: 48px;
+  }
+}
+
+.legal-mentions-header h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 425px) {
+  .legal-mentions-header h2 {
+    margin-bottom: 32px;
+  }
+}
+
+.legal-mentions-section {
+  margin: 32px 0 32px 0;
+}
+@media screen and (max-width: 425px) {
+  .legal-mentions-section {
+    margin: 24px 0 24px 0;
+  }
+}
+
+.legal-mentions-section a, .legal-mentions-header a {
+  text-decoration: none;
+  color: black;
+}
+
+.legal-mentions-container p, .legal-mentions-container h3 {
+  padding: 0 24px 0 24px;
+}
+
+.legal-mentions-container h3 {
+  font-size: 24px;
+}
+@media screen and (max-width: 768px) {
+  .legal-mentions-container h3 {
+    font-size: 21px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .legal-mentions-container h3 {
+    font-size: 16px;
+  }
+}

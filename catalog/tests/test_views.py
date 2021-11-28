@@ -163,7 +163,7 @@ class FavoriteSave(TestCase):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         response = self.client.post(f'/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/')
-        self.assertRedirects(response, '/catalog/product/1/substitutes/')
+        self.assertRedirects(response, f'/catalog/product/{product.id}/substitutes/')
 
 
 class LegalMentions(TestCase):

@@ -18,6 +18,7 @@ class SignupViewTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_signup_view_uses_correct_template(self):
+        response = self.client.get(reverse('signup'))
         self.assertTemplateUsed(response, 'accounts/registration/signup.html')
 
 
