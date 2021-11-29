@@ -1,11 +1,10 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 
 from .models import Product, Category, Favorite
 from .forms import SearchForm, HomeSearchForm, NavSearchForm
@@ -40,14 +39,14 @@ def products_list(request):
 
 def product_detail(request, product_pk):
     navbar_form = NavSearchForm()
-    product = Product.objects.get(pk=product_pk)
+    product = get_object_or_404(Product, pk=product_pk)
     context = {'product': product, 'navbar_form': navbar_form}
     return render(request, 'catalog/product_detail.html', context)
 
 
 def substitutes_list(request, product_pk):
     navbar_form = NavSearchForm()
-    product = Product.objects.get(pk=product_pk)
+    product = get_object_or_404(Product, pk=product_pk)
     categories = Category.objects.filter(products__id=product.id)
     substitutes = Product.objects.filter(categories__in=categories, nutriscore__lt=product.nutriscore)
     substitutes = set(substitutes)
@@ -60,8 +59,8 @@ def favorite_save(request, product_pk, substitute_pk):
     if request.method != 'POST':
         return HttpResponseRedirect(request.path)
 
-    product = Product.objects.get(pk=product_pk)
-    substitute = Product.objects.get(pk=substitute_pk)
+    product = get_object_or_404(Product, pk=product_pk)
+    substitute = get_object_or_404(Product, pk=substitute_pk)
     profile = request.user
     favorite = Favorite(product=product, substitute=substitute, profile=profile)
     try:

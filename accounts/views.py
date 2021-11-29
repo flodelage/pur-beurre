@@ -1,5 +1,5 @@
 
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.views.generic import View
@@ -74,14 +74,14 @@ def favorites_list(request):
 @login_required
 def favorite_detail(request, favorite_pk):
     navbar_form = NavSearchForm()
-    favorite = Favorite.objects.get(id=favorite_pk)
+    favorite = get_object_or_404(Favorite, id=favorite_pk)
     context = {'navbar_form': navbar_form, 'favorite': favorite}
     return render(request, 'accounts/favorite_detail.html', context)
 
 
 @login_required
 def delete_favorite(request, favorite_pk):
-    favorite = Favorite.objects.get(id=favorite_pk)
+    favorite = get_object_or_404(Favorite, id=favorite_pk)
     if request.method == 'POST':
         favorite.delete()
         messages.success(request, f""""{favorite.substitute.name}" a bien été supprimé""")
