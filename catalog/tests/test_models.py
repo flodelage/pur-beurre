@@ -25,7 +25,7 @@ class CategoryModelTest(TestCase):
             },
             brand='Ferrero',
             description='huile de palme',
-            store= 'Auchan, Carrefour',
+            store='Auchan, Carrefour',
             picture='https://static.openfoodfacts.org/images/products/47647.jpg',
             url='https://fr.openfoodfacts.org/produit/47647/Nutella'
         )
@@ -43,7 +43,7 @@ class CategoryModelTest(TestCase):
             },
             brand='Rigoni di Asiago',
             description='bio, sans huile de palme',
-            store= 'Leclerc',
+            store='Leclerc',
             picture='https://static.openfoodfacts.org/images/products/183647.jpg',
             url='https://fr.openfoodfacts.org/produit/183647/Nocciolata'
         )
@@ -76,7 +76,7 @@ class CategoryModelTest(TestCase):
 
     def test_products(self):
         category = Category.objects.get(name='categorie de test')
-        products = [ p.name for p in category.products.all() ]
+        products = [p.name for p in category.products.all()]
         self.assertEquals(sorted(products), ['Nocciolata', 'Nutella'])
 
 
@@ -101,7 +101,7 @@ class ProductModelTest(TestCase):
             },
             brand='Nestlé',
             description='produit sans gluten',
-            store= 'Auchan, Carrefour',
+            store='Auchan, Carrefour',
             picture='https://static.openfoodfacts.org/images/products/1234.jpg',
             url='https://fr.openfoodfacts.org/produit/1234/produit_de_test'
         )
@@ -211,7 +211,7 @@ class ProductModelTest(TestCase):
 
     def test_categories(self):
         product = Product.objects.get(name='produit de test')
-        categories = [ cat.name for cat in product.categories.all() ]
+        categories = [cat.name for cat in product.categories.all()]
         self.assertEquals(sorted(categories), ['desserts', 'snacks'])
 
 
@@ -234,7 +234,7 @@ class SomeFavoriteTest(TestCase):
             },
             brand='Ferrero',
             description='huile de palme',
-            store= 'Auchan, Carrefour',
+            store='Auchan, Carrefour',
             picture='https://static.openfoodfacts.org/images/products/47647.jpg',
             url='https://fr.openfoodfacts.org/produit/47647/Nutella'
         )
@@ -252,39 +252,49 @@ class SomeFavoriteTest(TestCase):
             },
             brand='Rigoni di Asiago',
             description='bio, sans huile de palme',
-            store= 'Leclerc',
+            store='Leclerc',
             picture='https://static.openfoodfacts.org/images/products/183647.jpg',
             url='https://fr.openfoodfacts.org/produit/183647/Nocciolata'
         )
 
-        Profile.objects.create(username='vanrussom', email='vanrussom@django.com', password='Django56789')
+        Profile.objects.create(username='vanrussom',
+                               email='vanrussom@django.com',
+                               password='Django56789')
 
     def test_product(self):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         profile = Profile.objects.get(username='vanrussom')
-        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        favorite = Favorite.objects.create(product=product,
+                                           substitute=substitute,
+                                           profile=profile)
         self.assertEquals(product, favorite.product)
 
     def test_substitute(self):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         profile = Profile.objects.get(username='vanrussom')
-        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        favorite = Favorite.objects.create(product=product,
+                                           substitute=substitute,
+                                           profile=profile)
         self.assertEquals(substitute, favorite.substitute)
 
     def test_profile(self):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         profile = Profile.objects.get(username='vanrussom')
-        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        favorite = Favorite.objects.create(product=product,
+                                           substitute=substitute,
+                                           profile=profile)
         self.assertEquals(profile, favorite.profile)
 
     def test_unique_together(self):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         profile = Profile.objects.get(username='vanrussom')
-        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        favorite = Favorite.objects.create(product=product,
+                                           substitute=substitute,
+                                           profile=profile)
         unique_together = (('substitute', 'product', 'profile'),)
         self.assertEquals(unique_together, favorite._meta.unique_together)
 
@@ -292,6 +302,8 @@ class SomeFavoriteTest(TestCase):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         profile = Profile.objects.get(username='vanrussom')
-        favorite = Favorite.objects.create(product=product, substitute=substitute, profile=profile)
+        favorite = Favorite.objects.create(product=product,
+                                           substitute=substitute,
+                                           profile=profile)
         object_str = favorite.__str__()
         self.assertEquals(object_str, f"Favori {favorite.pk}: Substitut: {favorite.substitute} / Produit substitué: {favorite.product} / {favorite.profile}")

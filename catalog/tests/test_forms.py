@@ -27,7 +27,8 @@ class HomeSearchFormTest(TestCase):
 
     def test_search_field_widget(self):
         form = HomeSearchForm()
-        self.assertEqual(form.fields['search'].widget.attrs, {'placeholder': 'produit ou catégorie'})
+        self.assertEqual(form.fields['search'].widget.attrs,
+                         {'placeholder': 'produit ou catégorie'})
 
 
 class NavSearchFormTest(TestCase):
@@ -42,4 +43,5 @@ class NavSearchFormTest(TestCase):
 
     def test_search_field_widget(self):
         form = NavSearchForm()
-        self.assertEqual(form.fields['search'].widget.attrs, {'placeholder':'chercher'})
+        self.assertEqual(form.fields['search'].widget.attrs,
+                         {'placeholder': 'chercher'})

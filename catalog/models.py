@@ -2,8 +2,6 @@
 from django.conf import settings
 from django.db import models
 
-from accounts.models import Profile
-
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -30,9 +28,20 @@ class Product(models.Model):
 
 class Favorite(models.Model):
     # Foreign Key(s):
-    substitute = models.ForeignKey(Product, related_name="favorites_as_substitute", on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name="favorites_as_product", on_delete=models.CASCADE)
-    profile = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    substitute = models.ForeignKey(
+        Product,
+        related_name="favorites_as_substitute",
+        on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(
+        Product,
+        related_name="favorites_as_product",
+        on_delete=models.CASCADE
+    )
+    profile = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
 
     class Meta:
         unique_together = ('substitute', 'product', 'profile')

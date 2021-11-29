@@ -1,6 +1,5 @@
 
 import requests
-import json
 from django.db.utils import IntegrityError
 
 from catalog.utils.exceptions import RequestResponse404
@@ -20,14 +19,15 @@ class Populate():
     which products from wich category have to be inserted
     """
 
-
     @classmethod
     def insert_categories(cls, categories_number):
         """
         Insert a list of X categories in database
         from Openfoodfacts categories Json
         """
-        request = requests.request("GET", "https://fr.openfoodfacts.org/categories.json")
+        request = requests.request(
+            "GET", "https://fr.openfoodfacts.org/categories.json"
+        )
         if request.status_code == 404:
             raise RequestResponse404
         categories_json = request.json()
@@ -38,7 +38,6 @@ class Populate():
             if len(cls.categories_list) == categories_number:
                 break
         Category.objects.bulk_create(cls.categories_list)
-
 
     @classmethod
     def is_product_name_valid(cls, product_name):
@@ -61,7 +60,6 @@ class Populate():
         else:
             return False
 
-
     @classmethod
     def nutrients_cleaner(cls, nutrients_dictionary):
         nutrients = {
@@ -80,7 +78,6 @@ class Populate():
         nutrients['sugars'] = nutrients_dictionary['sugars_100g']
         return nutrients
 
-
     @classmethod
     def insert_products(cls, pages_number):
         """
@@ -89,7 +86,10 @@ class Populate():
         """
         for category in cls.categories_list:
             for page in range(pages_number+1):
-                request = requests.request("GET", f"https://fr.openfoodfacts.org/categorie/{category.name}.json/{page}")
+                request = requests.request(
+                    "GET",
+                    f"https://fr.openfoodfacts.org/categorie/{category.name}.json/{page}"
+                )
                 if request.status_code == 404:
                     raise RequestResponse404
                 products_json = request.json()
@@ -121,7 +121,6 @@ class Populate():
                                 continue
                     except KeyError:
                         continue
-
 
     @classmethod
     def process(cls, categories_number, pages_number):

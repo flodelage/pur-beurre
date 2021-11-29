@@ -56,12 +56,14 @@ class ProductDetailView(TestCase):
 
     def test_product_detail_view_url_accessible_by_name(self):
         product = Product.objects.get(name='Nutella')
-        response = self.client.get(reverse('product_detail', kwargs={'product_pk': product.id}))
+        response = self.client.get(reverse('product_detail',
+                                           kwargs={'product_pk': product.id}))
         self.assertEqual(response.status_code, 200)
 
     def test_product_detail_view_uses_correct_template(self):
         product = Product.objects.get(name='Nutella')
-        response = self.client.get(reverse('product_detail', kwargs={'product_pk': product.id}))
+        response = self.client.get(reverse('product_detail',
+                                           kwargs={'product_pk': product.id}))
         self.assertTemplateUsed(response, 'catalog/product_detail.html')
 
 
@@ -105,12 +107,14 @@ class SubstitutesListView(TestCase):
 
     def test_substitutes_list_view_url_accessible_by_name(self):
         product = Product.objects.get(name='Nutella')
-        response = self.client.get(reverse('substitutes_list', kwargs={'product_pk': product.id}))
+        response = self.client.get(reverse('substitutes_list',
+                                           kwargs={'product_pk': product.id}))
         self.assertEqual(response.status_code, 200)
 
     def test_substitutes_list_view_uses_correct_template(self):
         product = Product.objects.get(name='Nutella')
-        response = self.client.get(reverse('substitutes_list', kwargs={'product_pk': product.id}))
+        response = self.client.get(reverse('substitutes_list',
+                                           kwargs={'product_pk': product.id}))
         self.assertTemplateUsed(response, 'catalog/substitutes_list.html')
 
     def test_substitutes_list_view_product_in_context(self):
@@ -135,35 +139,43 @@ class SubstitutesListView(TestCase):
 class FavoriteSave(TestCase):
 
     def setUp(self):
-        nutella = Product.objects.create(
+        Product.objects.create(
             name='Nutella',
             nutriscore='D',
             url='https://fr.openfoodfacts.org/produit/47647/Nutella',
         )
 
-        nocciolata = Product.objects.create(
+        Product.objects.create(
             name='Nocciolata',
             nutriscore='C',
             url='https://fr.openfoodfacts.org/produit/183647/Nocciolata'
         )
 
-        user = Profile.objects.create(username='vanrussom', email='vanrussom@django.com')
+        user = Profile.objects.create(username='vanrussom',
+                                      email='vanrussom@django.com')
         user.set_password('Django56789')
         user.save()
 
     def test_favorite_save_view_post_request_redirection_url_when_user_not_logged(self):
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
-        response = self.client.post(f'/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/')
-        self.assertRedirects(response, f'/accounts/login/?next=/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/')
+        response = self.client.post(
+            f'/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/'
+        )
+        self.assertRedirects(
+            response,
+            f'/accounts/login/?next=/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/'
+        )
 
     def test_favorite_save_view_post_request_redirection_url_when_user_logged(self):
-        user = Profile.objects.get(username='vanrussom')
-        login = self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(username='vanrussom', password='Django56789')
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
-        response = self.client.post(f'/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/')
-        self.assertRedirects(response, f'/catalog/product/{product.id}/substitutes/')
+        response = self.client.post(
+            f'/catalog/favorite_save/product/{product.id}/substitute/{substitute.id}/'
+        )
+        self.assertRedirects(response,
+                             f'/catalog/product/{product.id}/substitutes/')
 
 
 class LegalMentions(TestCase):

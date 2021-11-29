@@ -1,7 +1,5 @@
 
 from django.core.management.base import BaseCommand
-from django.core import management
-from django.db import connection
 
 from catalog.utils.populate import Populate
 
