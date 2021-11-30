@@ -4,21 +4,15 @@ This application is the eighth project of the OpenClassrooms' Python developer c
 ## Application description
 The application aims to allow a user to find products with a better nutrition grade than a chosen product.
 
-### Page content
-The user opens his browser and enter the URL address: https://gd-py-bot.herokuapp.com.
-The web page should contain the following elements:
-* header : logo with tagline
-* main zone : zone for conversing with the application
-* footer : firsname and lastname, link with github repository and other social networks links.
-
-### User journey
-* the user enters for example: "Hi GrandPy! Do you know the address of the eiffel tower?"
-* the user's message is displayed
-* a loader indicates that the bot is thinking
-* then a new message appears, GrandPy answers "Here is the exact address: Champ de Mars, 5 Avenue Anatole France, 75007 Paris, France!"
-* below appears a map indicating the location of the Eiffel Tower
-* Grandpy sends another message: "I know quite a few stories about this district, for example: The bust of Gustave Eiffel by Antoine Bourdelle is a gilded bronze bust representing Gustave Eiffel, made by Antoine Bourdelle and installed in 1929 at the foot of the Eiffel Tower."
-* a new message appears again: "If you want to know more, don't hesitate to click on this link to Wikipedia". This link sends the user to a wikipedia page dedicated to the eiffel tower.
+### Features
+* Account creation
+* Login / Logout
+* Search and display a product or products from a category by entering a name
+* Display a product details (nutrition grade, nutrient intake, link to the Openfoodfacts page)
+* Display substitutes list (products with a better nutrition grade than a chosen product)
+* Save a substitute as favorite
+* Display favorites
+* Delete substitute from favorites
 
 ### Technologies
 * Python / Django
@@ -51,20 +45,14 @@ MAPS_GEOCODING_KEY = "your_google_maps_geocoding_key"
 MAPS_JS_KEY = "your_google_maps_js_key"
 FLASK_KEY = "your_flask_personal_key"
 
-6. Set Flask environement variables:
+6. Run the project in local:
 ```
-export FLASK_APP=run.py
-export FLASK_ENV=development
-```
-
-7. Run flask in local:
-```
-flask run
+python manage.py runserver
 ```
 
-8. Go to your browser in order to access the localhost at the URL:
+7. Go to your browser in order to access the localhost at the URL (by default):
 ```
-http://127.0.0.1:5000/
+http://127.0.0.1:8000/
 ```
 
 ## Running tests
