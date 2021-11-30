@@ -1,5 +1,6 @@
 # Pur Beurre
 This application is the eighth project of the OpenClassrooms' Python developer course.
+Site en production sur Heroku: https://p8-pur-beurre.herokuapp.com/
 
 ## Application description
 The application aims to allow a user to find products with a better nutrition grade than a chosen product.
