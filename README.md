@@ -40,17 +40,26 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-5. Update config.py:
-MAPS_GEOCODING_KEY = "your_google_maps_geocoding_key"
-MAPS_JS_KEY = "your_google_maps_js_key"
-FLASK_KEY = "your_flask_personal_key"
+5. Update pur_beurre/settings.py:
+DATABASES = {
+    'default': {
+        'NAME': 'your_db_name',
+        'USER': 'your_db_user',
+        'PASSWORD': 'your_db_password',
+    }
+}
 
-6. Run the project in local:
+6. populate the database:
+```
+python manage.py populate_db
+```
+
+7. Run the project in local:
 ```
 python manage.py runserver
 ```
 
-7. Go to your browser in order to access the localhost at the URL (by default):
+8. Go to your browser in order to access the localhost at the URL (by default):
 ```
 http://127.0.0.1:8000/
 ```
