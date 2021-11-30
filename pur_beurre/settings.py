@@ -17,8 +17,6 @@ from django.contrib.messages import constants as messages
 import django_heroku
 
 
-
-
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
         messages.INFO: 'alert-info',
@@ -35,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qy&-a_535y62ii7^yl%o_in$eqg-j$r8&s)htz9a^u3vjk428n'
+SECRET_KEY = os.environ.get('DJANGO_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get('ENV', 'development') == 'production' else True
@@ -94,9 +92,9 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'purbeurre',
-        'USER': 'floriandelage',
-        'PASSWORD': '',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': '',
         'PORT': '5432',
     }
