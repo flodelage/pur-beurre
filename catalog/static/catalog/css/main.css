@@ -11314,6 +11314,9 @@ header.masthead h1, header.masthead .h1 {
   }
 }
 
+#contact {
+  background-color: var(--moules);
+}
 #contact p, #contact h2{
   color: #FFFFFF;
 }
@@ -11916,7 +11919,7 @@ font-size: 1rem;
 
 .legal-mentions-section a, .legal-mentions-header a {
   text-decoration: none;
-  color: black;
+  color: var(--caramel);
 }
 
 .legal-mentions-container p, .legal-mentions-container h3 {
