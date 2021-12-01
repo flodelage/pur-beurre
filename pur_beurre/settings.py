@@ -15,7 +15,7 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 
 import django_heroku
-from dotenv import load_dotenv
+import dotenv
 
 
 load_dotenv()  # loads the configs from .env
