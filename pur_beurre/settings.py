@@ -15,6 +15,11 @@ from pathlib import Path
 from django.contrib.messages import constants as messages
 
 import django_heroku
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 
 MESSAGE_TAGS = {
@@ -33,7 +38,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_KEY', default='django-insecure-qy&-a_535y62ii7^yl%o_in$eqg-j$r8&s)htz9a^u3vjk428n')
+SECRET_KEY = env('DJANGO_KEY', default='django-insecure-qy&-a_535y62ii7^yl%o_in$eqg-j$r8&s)htz9a^u3vjk428n')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get('ENV', 'development') == 'production' else True
 
@@ -91,9 +96,9 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'purbeurre',
-        'USER': 'floriandelage',
-        'PASSWORD': '',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': '',
         'PORT': '5432',
     }
