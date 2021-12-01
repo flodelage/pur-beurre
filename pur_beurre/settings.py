@@ -18,7 +18,7 @@ import django_heroku
 import dotenv
 
 
-load_dotenv()  # loads the configs from .env
+dotenv.read_dotenv()  # loads the configs from .env
 
 MESSAGE_TAGS = {
         messages.DEBUG: 'alert-secondary',
