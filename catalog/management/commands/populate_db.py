@@ -13,4 +13,4 @@ class Command(BaseCommand):
     help = "Populates database with some Openfoodfacts' data"
 
     def handle(self, *args, **kwargs):
-        Populate.process(categories_number=5, pages_number=4)
+        Populate.process(categories_number=50, pages_number=8)
