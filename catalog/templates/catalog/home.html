@@ -1,6 +1,6 @@
 
 {% extends 'catalog/base.html' %}
-
+{% load static %}
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
@@ -37,11 +37,11 @@
             </div>
             <div class="images-about row">
                 <div class="col-lg-6 col-md-6 text-center">
-                    <img class="img-tatou-home float-left" src="/static/catalog/assets/img/colette-tatou-full.png" alt="colette-tatou-image">
+                    <img class="img-tatou-home float-left" src="{% static 'catalog/assets/img/colette-tatou-full.png' %}" alt="colette-tatou-image">
                     <p>Colette</p>
                 </div>
                 <div class="col-lg-6 col-md-6 text-center">
-                    <img class="img-remy-home float-right" src="/static/catalog/assets/img/ratatouille-portrait.jpg" alt="remy-image">
+                    <img class="img-remy-home float-right" src="{% static 'catalog/assets/img/ratatouille-portrait.jpg' %}" alt="remy-image">
                     <p>Remy</p>
                 </div>
             </div>
