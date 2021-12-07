@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <div class="col-12 pt-5 pb-3 px-0 text-center products-list-title">
-            {% if substitutes|length == 0 %}
+            {% if substitutes %}
                 <h2>Nous n'avons pas de substitut à proposer pour ce produit</h2>
             {% else %}
                 <h2>Vous pouvez remplacer cet aliment par:</h2>
@@ -21,7 +21,7 @@
     </div>
     <div class="searchpage-container">
         <div class="cards-product">
-            {% if products.count == 0 %}
+            {% if products %}
                 <p>Désolé votre recherche n'a donné aucun résultat</p>
             {% else %}
                 {% for substitute in substitutes %}
@@ -47,11 +47,8 @@
                                 </div>
                             </div>
                         </a>
-                        <form id="favorite-save-form" method="POST" action="{% url 'favorite_save' product_pk=product.id substitute_pk=substitute.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="data"/>
-                        </form>
-                        <a class="call-to-action-link" href="#" onclick='document.getElementById("favorite-save-form").submit()'>
+
+                        <a class="call-to-action-link" href="{% url 'favorite_save' product_pk=product.id substitute_pk=substitute.id %}">
                             <div class="call-to-action" >
                                 <i class="fas fa-save"></i>
                                 <p>Sauvegarder</p>

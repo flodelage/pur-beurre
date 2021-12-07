@@ -88,17 +88,12 @@ def favorite_save(request, product_pk, substitute_pk):
     Allow a logged in user to save a favorite (a substitute with his
     substituted product) to his account from a substitutes list
     """
-    if request.method != 'POST':
-        return HttpResponseRedirect(request.path)
-
     product = get_object_or_404(Product, pk=product_pk)
     substitute = get_object_or_404(Product, pk=substitute_pk)
-    profile = request.user
-    favorite = Favorite(product=product,
-                        substitute=substitute,
-                        profile=profile)
     try:
-        favorite.save()
+        Favorite.objects.create(product=product,
+                            substitute=substitute,
+                            profile=request.user)
         messages.success(
             request, f""""{favorite.substitute.name}" a bien été enregistré"""
         )
@@ -107,10 +102,10 @@ def favorite_save(request, product_pk, substitute_pk):
             request,
             'Ce produit et ce substitut font déjà partie de vos favoris'
         )
-
-    return redirect(
-        reverse('substitutes_list', kwargs={'product_pk': product.id})
-    )
+    finally:
+        return redirect(
+            reverse('substitutes_list', kwargs={'product_pk': product.id})
+        )
 
 
 def legal_mentions(request):

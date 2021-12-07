@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
 import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
@@ -35,7 +36,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.environ.get('ENV', 'development') == 'production' else True
+DEBUG = os.environ.get('ENV', 'development') != 'productions'
 
 ALLOWED_HOSTS = ['.herokuapps.com', 'localhost', '127.0.0.1']
 
