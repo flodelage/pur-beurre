@@ -85,9 +85,9 @@ def favorite_save(request, product_pk, substitute_pk):
     product = get_object_or_404(Product, pk=product_pk)
     substitute = get_object_or_404(Product, pk=substitute_pk)
     try:
-        Favorite.objects.create(product=product,
-                                substitute=substitute,
-                                profile=request.user)
+        favorite = Favorite.objects.create(product=product,
+                                           substitute=substitute,
+                                           profile=request.user)
         messages.success(
             request, f""""{favorite.substitute.name}" a bien été enregistré"""
         )
