@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
+from django.conf import global_settings
 
 import django_heroku
 
@@ -76,13 +77,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'catalog.context_processors.nav_bar_form',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 
+WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

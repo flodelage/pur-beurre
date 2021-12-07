@@ -6,9 +6,10 @@ from django.db import IntegrityError
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
 
 from .models import Product, Category, Favorite
-from .forms import SearchForm, HomeSearchForm, NavSearchForm
+from .forms import SearchForm, HomeSearchForm
 
 
 def home(request):
@@ -16,9 +17,8 @@ def home(request):
     Return Home template
     """
     home_form = HomeSearchForm()
-    navbar_form = NavSearchForm()
-    context = {'navbar_form': navbar_form, 'home_form': home_form, }
-    return render(request, 'catalog/home.html', context)
+    return render(request, 'catalog/home.html',
+                  context = {'home_form': home_form, })
 
 
 def products_list(request):
@@ -32,7 +32,6 @@ def products_list(request):
     If his input matches with nothing: template will inform user
     that there is no result.
     """
-    navbar_form = SearchForm()
     if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
@@ -45,12 +44,10 @@ def products_list(request):
                     Q(categories__name__icontains=user_input)
                 )
         products = set(products)
-        context = {'navbar_form': navbar_form,
-                   'user_input': user_input,
+        context = {'user_input': user_input,
                    'products': products, }
     else:
-        navbar_form = NavSearchForm()
-        context = {'navbar_form': navbar_form, }
+        context = {}
     return render(request, 'catalog/products_list.html', context)
 
 
@@ -58,10 +55,9 @@ def product_detail(request, product_pk):
     """
     Allow a user to see a product details
     """
-    navbar_form = NavSearchForm()
     product = get_object_or_404(Product, pk=product_pk)
-    context = {'product': product, 'navbar_form': navbar_form}
-    return render(request, 'catalog/product_detail.html', context)
+    return render(request, 'catalog/product_detail.html',
+                  context = {'product': product,})
 
 
 def substitutes_list(request, product_pk):
@@ -69,17 +65,15 @@ def substitutes_list(request, product_pk):
     Allow a user to see a substitutes list (products with a better nutrition
     grade than the product he chose from a products list)
     """
-    navbar_form = NavSearchForm()
     product = get_object_or_404(Product, pk=product_pk)
     categories = Category.objects.filter(products__id=product.id)
     substitutes = Product.objects.filter(categories__in=categories,
                                          nutriscore__lt=product.nutriscore)
     substitutes = set(substitutes)
-    context = {'navbar_form': navbar_form,
-               'categories': categories,
-               'product': product,
-               'substitutes': substitutes, }
-    return render(request, 'catalog/substitutes_list.html', context)
+    return render(request, 'catalog/substitutes_list.html',
+                  context = {'categories': categories,
+                             'product': product,
+                             'substitutes': substitutes, })
 
 
 @login_required
@@ -92,8 +86,8 @@ def favorite_save(request, product_pk, substitute_pk):
     substitute = get_object_or_404(Product, pk=substitute_pk)
     try:
         Favorite.objects.create(product=product,
-                            substitute=substitute,
-                            profile=request.user)
+                                substitute=substitute,
+                                profile=request.user)
         messages.success(
             request, f""""{favorite.substitute.name}" a bien été enregistré"""
         )
@@ -112,6 +106,5 @@ def legal_mentions(request):
     """
     Return legal notice template
     """
-    navbar_form = NavSearchForm()
-    context = {'navbar_form': navbar_form, }
-    return render(request, 'catalog/legal_mentions.html', context)
+    return render(request, 'catalog/legal_mentions.html',
+                  context = {})
