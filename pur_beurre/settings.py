@@ -36,9 +36,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('DJANGO_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('ENV', 'development') != 'productions'
+DEBUG = os.environ.get('ENV', 'development') != 'production'
 
-ALLOWED_HOSTS = ['.herokuapps.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['p8-pur-beurre.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
