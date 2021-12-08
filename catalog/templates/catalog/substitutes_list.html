@@ -13,17 +13,15 @@
     <div class="row">
         <div class="col-12 pt-5 pb-3 px-0 text-center products-list-title">
             {% if substitutes %}
-                <h2>Nous n'avons pas de substitut à proposer pour ce produit</h2>
-            {% else %}
                 <h2>Vous pouvez remplacer cet aliment par:</h2>
+            {% else %}
+                <h2>Nous n'avons pas de substitut à proposer pour ce produit</h2>
             {% endif %}
         </div>
     </div>
     <div class="searchpage-container">
         <div class="cards-product">
             {% if products %}
-                <p>Désolé votre recherche n'a donné aucun résultat</p>
-            {% else %}
                 {% for substitute in substitutes %}
                     <div class="product">
                         <a href="{% url 'product_detail' product_pk=substitute.id %}" class="card-product-link">
@@ -56,6 +54,8 @@
                         </a>
                     </div>
                 {% endfor %}
+            {% else %}
+                <p>Désolé votre recherche n'a donné aucun résultat</p>
             {% endif %}
 
             {% if messages %}
