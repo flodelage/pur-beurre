@@ -13,9 +13,7 @@
     </div>
     <div class="searchpage-container">
         <div class="cards-product">
-            {% if favorites.count == 0 %}
-                <p>Aucun aliment sauvegardé</p>
-            {% else %}
+            {% if favorites %}
                 {% for favorite in favorites %}
                     <div class="product">
                         <a href="{% url 'favorite_detail' favorite.pk %}" class="card-product-link">
@@ -52,6 +50,8 @@
                         </a>
                     </div>
                 {% endfor %}
+            {% else %}
+                <p>Aucun aliment sauvegardé</p>
             {% endif %}
 
             {% if messages %}

@@ -71,8 +71,7 @@ def substitutes_list(request, product_pk):
                                          nutriscore__lt=product.nutriscore)
     substitutes = set(substitutes)
     return render(request, 'catalog/substitutes_list.html',
-                  context = {'categories': categories,
-                             'product': product,
+                  context = {'product': product,
                              'substitutes': substitutes, })
 
 
