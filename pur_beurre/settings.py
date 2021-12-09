@@ -34,7 +34,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_KEY')
+# SECRET_KEY = os.environ.get('DJANGO_KEY')
+SECRET_KEY = 'TiXNqf0Q2byC2CduE0t2Lt5'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.environ.get('ENV', 'development') == 'production' else True
 
@@ -90,16 +92,30 @@ WSGI_APPLICATION = 'pur_beurre.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME'),
+#         'USER': os.environ.get('DB_USER'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD'),
+#         'HOST': os.environ.get('DB_HOST'),
+#         'PORT': '5432',
+#     }
+# }
+
+# DIGITAL OCEAN
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
+        'USER': os.environ.get('DO_DB_USER'),
+        'PASSWORD': os.environ.get('DO_DB_PASSWORD'),
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
