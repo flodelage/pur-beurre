@@ -59,7 +59,7 @@ class CategoryModelTest(TestCase):
     def test_name_max_length(self):
         category = Category.objects.get(name='categorie de test')
         max_length = category._meta.get_field('name').max_length
-        self.assertEquals(max_length, 200)
+        self.assertEquals(max_length, 254)
 
     def test_name_unique(self):
         category = Category.objects.get(name='categorie de test')
@@ -121,7 +121,7 @@ class ProductModelTest(TestCase):
     def test_name_max_length(self):
         product = Product.objects.get(name='produit de test')
         max_length = product._meta.get_field('name').max_length
-        self.assertEquals(max_length, 200)
+        self.assertEquals(max_length, 254)
 
     def test_nutriscore(self):
         product = Product.objects.get(name='produit de test')
@@ -154,7 +154,7 @@ class ProductModelTest(TestCase):
     def test_brand_max_length(self):
         product = Product.objects.get(name='produit de test')
         max_length = product._meta.get_field('brand').max_length
-        self.assertEquals(max_length, 200)
+        self.assertEquals(max_length, 254)
 
     def test_brand_null(self):
         product = Product.objects.get(name='produit de test')
@@ -179,7 +179,7 @@ class ProductModelTest(TestCase):
     def test_store_max_length(self):
         product = Product.objects.get(name='produit de test')
         max_length = product._meta.get_field('store').max_length
-        self.assertEquals(max_length, 200)
+        self.assertEquals(max_length, 254)
 
     def test_store_null(self):
         product = Product.objects.get(name='produit de test')

@@ -4,21 +4,21 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=254, unique=True)
 
     def __str__(self):
         return f"Catégorie {self.pk}: {self.name}"
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=200, unique=True)
+    name = models.CharField(max_length=254, unique=True)
     nutriscore = models.CharField(max_length=1)
     nutrients = models.JSONField(default=dict)
-    brand = models.CharField(max_length=200, null=True)
+    brand = models.CharField(max_length=254, null=True)
     description = models.TextField(null=True)
-    store = models.CharField(max_length=200, null=True)
-    picture = models.URLField(null=True)
-    url = models.URLField()
+    store = models.CharField(max_length=254, null=True)
+    picture = models.URLField(max_length=300, null=True)
+    url = models.URLField(max_length=300)
     # Foreign Key(s):
     categories = models.ManyToManyField(Category, related_name="products")
 
