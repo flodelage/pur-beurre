@@ -123,12 +123,6 @@ class SubstitutesListView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['product'], product)
 
-    def test_substitutes_list_view_categories_in_context(self):
-        product = Product.objects.get(name='Nutella')
-        response = self.client.get(f'/catalog/product/{product.id}/substitutes/')
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['categories'][0].name, 'Pate à tartiner')
-
     def test_substitutes_list_view_substitutes_in_context(self):
         product = Product.objects.get(name='Nutella')
         response = self.client.get(f'/catalog/product/{product.id}/substitutes/')
@@ -168,7 +162,7 @@ class FavoriteSave(TestCase):
         )
 
     def test_favorite_save_view_post_request_redirection_url_when_user_logged(self):
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         product = Product.objects.get(name='Nutella')
         substitute = Product.objects.get(name='Nocciolata')
         response = self.client.post(

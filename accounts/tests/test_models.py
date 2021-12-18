@@ -71,12 +71,12 @@ class ProfileModelTest(TestCase):
     def test_required_fields(self):
         profile = Profile.objects.get(id=1)
         required_fields = profile.REQUIRED_FIELDS
-        self.assertEquals(required_fields, ['email', 'password'])
+        self.assertEquals(required_fields, ['username', 'password'])
 
     def test_username_field(self):
         profile = Profile.objects.get(id=1)
         username_field = profile.USERNAME_FIELD
-        self.assertEquals(username_field, 'username')
+        self.assertEquals(username_field, 'email')
 
     def test_object_str(self):
         profile = Profile.objects.get(id=1)

@@ -58,17 +58,17 @@ class AccountViewTest(TestCase):
         )
 
     def test_account_view_when_user_logged(self):
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         response = self.client.get('/accounts/account/')
         self.assertEqual(response.status_code, 200)
 
     def test_account_view_url_accessible_by_name(self):
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         response = self.client.get(reverse('account'))
         self.assertEqual(response.status_code, 200)
 
     def test_account_view_uses_correct_template(self):
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         response = self.client.get(reverse('account'))
         self.assertTemplateUsed(response, 'accounts/account.html')
 
@@ -124,7 +124,7 @@ class FavoritesListViewTest(TestCase):
                              '/accounts/login/?next=/accounts/favorites/')
 
     def test_favorites_list_view_when_user_logged(self):
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         response = self.client.get(reverse('favorites'))
         # Check user is logged in
         self.assertEqual(str(response.context['profile'].username),
@@ -171,7 +171,7 @@ class FavoriteDetailViewTest(TestCase):
 
     def test_favorite_detail_view_when_user_logged(self):
         user = Profile.objects.get(username='vanrussom')
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         favorite = user.favorite_set.all().first()
         response = self.client.get(f'/accounts/favorite/{favorite.id}/')
         # Check user is logged in
@@ -209,7 +209,7 @@ class DeleteFavoriteViewTest(TestCase):
                                 profile=user)
 
     def test_delete_favorite_view(self):
-        self.client.login(username='vanrussom', password='Django56789')
+        self.client.login(email='vanrussom@django.com', password='Django56789')
         favorite = Favorite.objects.all().first()
         response = self.client.post(
             f'/accounts/favorite/{favorite.id}/delete/'
