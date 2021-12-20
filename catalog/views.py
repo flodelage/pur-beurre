@@ -17,8 +17,10 @@ def home(request):
     Return Home template
     """
     home_form = HomeSearchForm()
+    products = Product.objects.all()
     return render(request, 'catalog/home.html',
-                  context = {'home_form': home_form, })
+                  context = {'home_form': home_form,
+                             'products': products})
 
 
 def products_list(request):
