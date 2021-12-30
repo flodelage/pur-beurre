@@ -1,12 +1,10 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db import IntegrityError
 from django.db.models import Q
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.template import RequestContext
 
 from .models import Product, Category, Favorite
 from .forms import SearchForm, HomeSearchForm
@@ -19,8 +17,8 @@ def home(request):
     home_form = HomeSearchForm()
     products = Product.objects.all()
     return render(request, 'catalog/home.html',
-                  context = {'home_form': home_form,
-                             'products': products})
+                  {'home_form': home_form,
+                   'products': products})
 
 
 def products_list(request):
@@ -59,7 +57,7 @@ def product_detail(request, product_pk):
     """
     product = get_object_or_404(Product, pk=product_pk)
     return render(request, 'catalog/product_detail.html',
-                  context = {'product': product,})
+                  {'product': product})
 
 
 def substitutes_list(request, product_pk):
@@ -73,8 +71,8 @@ def substitutes_list(request, product_pk):
                                          nutriscore__lt=product.nutriscore)
     substitutes = set(substitutes)
     return render(request, 'catalog/substitutes_list.html',
-                  context = {'product': product,
-                             'substitutes': substitutes, })
+                  {'product': product,
+                   'substitutes': substitutes})
 
 
 @login_required
@@ -107,5 +105,4 @@ def legal_mentions(request):
     """
     Return legal notice template
     """
-    return render(request, 'catalog/legal_mentions.html',
-                  context = {})
+    return render(request, 'catalog/legal_mentions.html', {})

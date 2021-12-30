@@ -22,7 +22,7 @@ def signup(request):
             login(request, user)
             return redirect(settings.LOGIN_REDIRECT_URL)
     return render(request, 'accounts/registration/signup.html',
-                  context = {'signup_form': signup_form})
+                  {'signup_form': signup_form})
 
 
 def log_in(request):
@@ -43,7 +43,7 @@ def log_in(request):
     else:
         auth_form = AuthenticationForm()
     return render(request, 'accounts/registration/login.html',
-                  context = {'auth_form': auth_form})
+                  {'auth_form': auth_form})
 
 
 @login_required
@@ -62,7 +62,7 @@ def account(request):
     """
     profile = request.user
     return render(request, 'accounts/account.html',
-                  context = {'profile': profile, })
+                  {'profile': profile, })
 
 
 @login_required
@@ -73,8 +73,8 @@ def favorites_list(request):
     profile = request.user
     favorites = profile.favorite_set.all()
     return render(request, 'accounts/favorites_list.html',
-                  context = {'profile': profile,
-                             'favorites': favorites, })
+                  {'profile': profile,
+                   'favorites': favorites, })
 
 
 @login_required
@@ -84,7 +84,7 @@ def favorite_detail(request, favorite_pk):
     """
     favorite = get_object_or_404(Favorite, id=favorite_pk)
     return render(request, 'accounts/favorite_detail.html',
-                  context = {'favorite': favorite, })
+                  {'favorite': favorite, })
 
 
 @login_required
