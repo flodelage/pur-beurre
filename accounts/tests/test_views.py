@@ -43,6 +43,28 @@ class LoginViewTest(TestCase):
         self.assertTemplateUsed(response, 'accounts/registration/login.html')
 
 
+class LogoutViewTest(TestCase):
+
+    def setUp(self):
+        user = Profile.objects.create(username='usertest',
+                               email='usertest@gmail.com')
+        user.set_password('m0t2passe')
+        user.save()
+
+    def test_logout_view_url_exists_at_desired_location(self):
+        response = self.client.get('/accounts/logout/')
+        self.assertEqual(response.status_code, 302)
+
+    def test_logout_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_logout_view_redirection(self):
+        self.client.login(email='usertest@gmail.com', password='m0t2passe')
+        response = self.client.get('/accounts/logout/')
+        self.assertRedirects(response, '/')
+
+
 class AccountViewTest(TestCase):
 
     def setUp(self):
