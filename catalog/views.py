@@ -39,11 +39,12 @@ def products_list(request):
             if user_input == '':
                 products = Product.objects.all()
             else:
-                products = Product.objects.filter(
-                    Q(name__icontains=user_input) |
-                    Q(categories__name__icontains=user_input)
+                products = set(
+                    Product.objects.filter(
+                        Q(name__icontains=user_input) |
+                        Q(categories__name__icontains=user_input)
+                    )
                 )
-        products = set(products)
         context = {'user_input': user_input,
                    'products': products, }
     else:
